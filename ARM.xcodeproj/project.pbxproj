@@ -23,8 +23,19 @@
 		652ADAA613E3EC1000D5143D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 652ADAA413E3EC1000D5143D /* InfoPlist.strings */; };
 		652ADAA813E3EC1000D5143D /* ARMTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 652ADAA713E3EC1000D5143D /* ARMTests.h */; };
 		652ADAAA13E3EC1000D5143D /* ARMTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 652ADAA913E3EC1000D5143D /* ARMTests.m */; };
-		652ADAB713E3EF7200D5143D /* Test.s in Sources */ = {isa = PBXBuildFile; fileRef = 652ADAB313E3EC4E00D5143D /* Test.s */; };
+		652ADAB713E3EF7200D5143D /* dot_product.s in Sources */ = {isa = PBXBuildFile; fileRef = 652ADAB313E3EC4E00D5143D /* dot_product.s */; };
 		652ADABA13E3F64D00D5143D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADAB913E3F64D00D5143D /* Accelerate.framework */; };
+		654B38E913E5BA4400104E9D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 652ADA8513E3EC1000D5143D /* main.m */; };
+		654B38EA13E5BA4400104E9D /* ARMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 652ADA8913E3EC1000D5143D /* ARMAppDelegate.m */; };
+		654B38EB13E5BA4400104E9D /* ARMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 652ADA8F13E3EC1000D5143D /* ARMViewController.m */; };
+		654B38EC13E5BA4400104E9D /* dot_product.s in Sources */ = {isa = PBXBuildFile; fileRef = 652ADAB313E3EC4E00D5143D /* dot_product.s */; };
+		654B38EE13E5BA4400104E9D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADAB913E3F64D00D5143D /* Accelerate.framework */; };
+		654B38EF13E5BA4400104E9D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADA7913E3EC1000D5143D /* UIKit.framework */; };
+		654B38F013E5BA4400104E9D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADA7B13E3EC1000D5143D /* Foundation.framework */; };
+		654B38F113E5BA4400104E9D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADA7D13E3EC1000D5143D /* CoreGraphics.framework */; };
+		654B38F313E5BA4400104E9D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 652ADA8213E3EC1000D5143D /* InfoPlist.strings */; };
+		654B38F413E5BA4400104E9D /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 652ADA8B13E3EC1000D5143D /* MainWindow.xib */; };
+		654B38F513E5BA4400104E9D /* ARMViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 652ADA9113E3EC1000D5143D /* ARMViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		652ADA7513E3EC0F00D5143D /* ARM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARM.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		652ADA7513E3EC0F00D5143D /* ARMv7.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARMv7.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		652ADA7913E3EC1000D5143D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		652ADA7B13E3EC1000D5143D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		652ADA7D13E3EC1000D5143D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -58,8 +69,10 @@
 		652ADAA513E3EC1000D5143D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		652ADAA713E3EC1000D5143D /* ARMTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARMTests.h; sourceTree = "<group>"; };
 		652ADAA913E3EC1000D5143D /* ARMTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARMTests.m; sourceTree = "<group>"; };
-		652ADAB313E3EC4E00D5143D /* Test.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = Test.s; sourceTree = "<group>"; };
+		652ADAB313E3EC4E00D5143D /* dot_product.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = dot_product.s; sourceTree = "<group>"; };
 		652ADAB913E3F64D00D5143D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		654B38F913E5BA4400104E9D /* ARMv6.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARMv6.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		654B38FB13E5BA4500104E9D /* ARM copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ARM copy-Info.plist"; path = "/Users/daniel/Dropbox/University/Assignments/4810-1164 Modern Computer Architectures and System Software/ARM/ARM copy-Info.plist"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +98,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		654B38ED13E5BA4400104E9D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				654B38EE13E5BA4400104E9D /* Accelerate.framework in Frameworks */,
+				654B38EF13E5BA4400104E9D /* UIKit.framework in Frameworks */,
+				654B38F013E5BA4400104E9D /* Foundation.framework in Frameworks */,
+				654B38F113E5BA4400104E9D /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -95,14 +119,16 @@
 				652ADAA113E3EC1000D5143D /* ARMTests */,
 				652ADA7813E3EC1000D5143D /* Frameworks */,
 				652ADA7613E3EC0F00D5143D /* Products */,
+				654B38FB13E5BA4500104E9D /* ARM copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
 		652ADA7613E3EC0F00D5143D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				652ADA7513E3EC0F00D5143D /* ARM.app */,
+				652ADA7513E3EC0F00D5143D /* ARMv7.app */,
 				652ADA9913E3EC1000D5143D /* ARMTests.octest */,
+				654B38F913E5BA4400104E9D /* ARMv6.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -122,7 +148,7 @@
 		652ADA7F13E3EC1000D5143D /* ARM */ = {
 			isa = PBXGroup;
 			children = (
-				652ADAB313E3EC4E00D5143D /* Test.s */,
+				652ADAB313E3EC4E00D5143D /* dot_product.s */,
 				652ADA8813E3EC1000D5143D /* ARMAppDelegate.h */,
 				652ADA8913E3EC1000D5143D /* ARMAppDelegate.m */,
 				652ADA8B13E3EC1000D5143D /* MainWindow.xib */,
@@ -167,9 +193,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		652ADA7413E3EC0F00D5143D /* ARM */ = {
+		652ADA7413E3EC0F00D5143D /* ARMv7 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 652ADAAD13E3EC1000D5143D /* Build configuration list for PBXNativeTarget "ARM" */;
+			buildConfigurationList = 652ADAAD13E3EC1000D5143D /* Build configuration list for PBXNativeTarget "ARMv7" */;
 			buildPhases = (
 				652ADA7113E3EC0F00D5143D /* Sources */,
 				652ADA7213E3EC0F00D5143D /* Frameworks */,
@@ -179,9 +205,9 @@
 			);
 			dependencies = (
 			);
-			name = ARM;
+			name = ARMv7;
 			productName = ARM;
-			productReference = 652ADA7513E3EC0F00D5143D /* ARM.app */;
+			productReference = 652ADA7513E3EC0F00D5143D /* ARMv7.app */;
 			productType = "com.apple.product-type.application";
 		};
 		652ADA9813E3EC1000D5143D /* ARMTests */ = {
@@ -203,6 +229,23 @@
 			productReference = 652ADA9913E3EC1000D5143D /* ARMTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
+		654B38E713E5BA4400104E9D /* ARMv6 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 654B38F613E5BA4400104E9D /* Build configuration list for PBXNativeTarget "ARMv6" */;
+			buildPhases = (
+				654B38E813E5BA4400104E9D /* Sources */,
+				654B38ED13E5BA4400104E9D /* Frameworks */,
+				654B38F213E5BA4400104E9D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ARMv6;
+			productName = ARM;
+			productReference = 654B38F913E5BA4400104E9D /* ARMv6.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -220,7 +263,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				652ADA7413E3EC0F00D5143D /* ARM */,
+				652ADA7413E3EC0F00D5143D /* ARMv7 */,
+				654B38E713E5BA4400104E9D /* ARMv6 */,
 				652ADA9813E3EC1000D5143D /* ARMTests */,
 			);
 		};
@@ -243,6 +287,16 @@
 			files = (
 				652ADAA613E3EC1000D5143D /* InfoPlist.strings in Resources */,
 				652ADAA813E3EC1000D5143D /* ARMTests.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		654B38F213E5BA4400104E9D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				654B38F313E5BA4400104E9D /* InfoPlist.strings in Resources */,
+				654B38F413E5BA4400104E9D /* MainWindow.xib in Resources */,
+				654B38F513E5BA4400104E9D /* ARMViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,7 +326,7 @@
 				652ADA8613E3EC1000D5143D /* main.m in Sources */,
 				652ADA8A13E3EC1000D5143D /* ARMAppDelegate.m in Sources */,
 				652ADA9013E3EC1000D5143D /* ARMViewController.m in Sources */,
-				652ADAB713E3EF7200D5143D /* Test.s in Sources */,
+				652ADAB713E3EF7200D5143D /* dot_product.s in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,12 +338,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		654B38E813E5BA4400104E9D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				654B38E913E5BA4400104E9D /* main.m in Sources */,
+				654B38EA13E5BA4400104E9D /* ARMAppDelegate.m in Sources */,
+				654B38EB13E5BA4400104E9D /* ARMViewController.m in Sources */,
+				654B38EC13E5BA4400104E9D /* dot_product.s in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		652ADAA013E3EC1000D5143D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 652ADA7413E3EC0F00D5143D /* ARM */;
+			target = 652ADA7413E3EC0F00D5143D /* ARMv7 */;
 			targetProxy = 652ADA9F13E3EC1000D5143D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -350,6 +415,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -368,6 +434,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -376,10 +443,10 @@
 		652ADAAE13E3EC1000D5143D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ARM/ARM-Prefix.pch";
 				INFOPLIST_FILE = "ARM/ARM-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -387,10 +454,10 @@
 		652ADAAF13E3EC1000D5143D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ARM/ARM-Prefix.pch";
 				INFOPLIST_FILE = "ARM/ARM-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -429,6 +496,28 @@
 			};
 			name = Release;
 		};
+		654B38F713E5BA4400104E9D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = armv6;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ARM/ARM-Prefix.pch";
+				INFOPLIST_FILE = "ARM-Info.plist";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		654B38F813E5BA4400104E9D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = armv6;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ARM/ARM-Prefix.pch";
+				INFOPLIST_FILE = "ARM-Info.plist";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -441,7 +530,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		652ADAAD13E3EC1000D5143D /* Build configuration list for PBXNativeTarget "ARM" */ = {
+		652ADAAD13E3EC1000D5143D /* Build configuration list for PBXNativeTarget "ARMv7" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				652ADAAE13E3EC1000D5143D /* Debug */,
@@ -455,6 +544,15 @@
 			buildConfigurations = (
 				652ADAB113E3EC1000D5143D /* Debug */,
 				652ADAB213E3EC1000D5143D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		654B38F613E5BA4400104E9D /* Build configuration list for PBXNativeTarget "ARMv6" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				654B38F713E5BA4400104E9D /* Debug */,
+				654B38F813E5BA4400104E9D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
