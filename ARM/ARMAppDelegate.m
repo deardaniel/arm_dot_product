@@ -11,6 +11,10 @@
 #import "ARMViewController.h"
 #import "Accelerate/Accelerate.h"
 
+#define MAX_VECTOR_LENGTH 10
+#define MAX_TEST_VALUE 100
+#define MAX_ABS_ERROR 1.0e-6
+
 @implementation ARMAppDelegate
 
 @synthesize window = _window;
@@ -44,11 +48,13 @@ float dot_product_float_asm(float *,float *, int32_t);
 void test_float(float *x,float *y, int32_t n) {
     float cResult = dot_product_float(x, y, n);
     float asmResult = dot_product_float_asm(x, y, n);
-    printf("%d => %f :: %f (%s)\n",
+    float error = fabs(asmResult - cResult) / cResult;
+    printf("%d => %f :: %f (%f => %s)\n",
            n,
            cResult,
            asmResult,
-           cResult == asmResult ? "SUCCESS" : "FAIL");
+           error,
+           error < MAX_ABS_ERROR ? "SUCCESS" : "FAIL");
 }
 
 float dot_product_float(float *x,float *y, int32_t n) {
@@ -67,26 +73,36 @@ float dot_product_float(float *x,float *y, int32_t n) {
     [self.window makeKeyAndVisible];
 
     {
-        int32_t x[] = { 10, 20, 30, 40,
-                        50, 60, 70, 80,
-                        90, 100 };
-        int32_t y[] = { 10, 9, 8, 7,
-                        6, 5, 4, 3,
-                        2, 1 };
+        int32_t *x = malloc(sizeof(int32_t) * MAX_VECTOR_LENGTH);
+        int32_t *y = malloc(sizeof(int32_t) * MAX_VECTOR_LENGTH);
         
-        for (int i=0; i<=10; i++)
+        for (int i=0; i<MAX_VECTOR_LENGTH; i++) {
+            x[i] = rand() % MAX_TEST_VALUE;
+            y[i] = rand() % MAX_TEST_VALUE;
+        }
+        
+        for (int i=0; i<=MAX_VECTOR_LENGTH; i++)
             test_int32(x, y, i);
     }
 #ifdef __ARM_NEON__
     {
-        float x[] = { 10.0f, 20.0f, 30.0f, 40.0f,
-                        50.0f, 60.0f, 70.0f, 80.0f,
-                        90.0f, 100.0f };
-        float y[] = { 10.0f, 9.0f, 8.0f, 7.0f,
-                        6.0f, 5.0f, 4.0f, 3.0f,
-                        2.0f, 1.0f };
+        float *x = malloc(sizeof(float) * MAX_VECTOR_LENGTH);
+        float *y = malloc(sizeof(float) * MAX_VECTOR_LENGTH);
         
-        for (int i=0; i<=10; i++)
+        for (int i=0; i<MAX_VECTOR_LENGTH; i++) {
+            x[i] = ((float)rand()/RAND_MAX) * MAX_TEST_VALUE;
+            y[i] = ((float)rand()/RAND_MAX) * MAX_TEST_VALUE;
+        }
+        
+        printf("\n == Float Test ==\n x = ( ");
+        for (int i=0; i<MAX_VECTOR_LENGTH; i++)
+            printf("%f ", x[i]);
+        printf(")\n y = ( ");
+        for (int i=0; i<MAX_VECTOR_LENGTH; i++)
+            printf("%f ", y[i]);
+        printf(")\n\n");
+        
+        for (int i=0; i<=MAX_VECTOR_LENGTH; i++)
             test_float(x, y, i);
         
     }
