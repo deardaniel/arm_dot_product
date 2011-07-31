@@ -66,7 +66,7 @@
 		652ADAB913E3F64D00D5143D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		654B38F913E5BA4400104E9D /* ARMv6.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARMv6.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		654B38FB13E5BA4500104E9D /* ARM copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ARM copy-Info.plist"; path = "/Users/daniel/Dropbox/University/Assignments/4810-1164 Modern Computer Architectures and System Software/ARM/ARM copy-Info.plist"; sourceTree = "<absolute>"; };
-		654B38FC13E5DA4600104E9D /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = SOURCE_ROOT; };
+		654B38FC13E5DA4600104E9D /* README.markdown */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.markdown; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,7 +160,7 @@
 				652ADA8213E3EC1000D5143D /* InfoPlist.strings */,
 				652ADA8513E3EC1000D5143D /* main.m */,
 				652ADA8713E3EC1000D5143D /* ARM-Prefix.pch */,
-				654B38FC13E5DA4600104E9D /* README */,
+				654B38FC13E5DA4600104E9D /* README.markdown */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
