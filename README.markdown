@@ -1,5 +1,5 @@
 Assignment &mdash; Implementation of dot product calculation on ARM
--------------------------------------------------------------
+=============================================================
 ***4810-1164 Modern Computer Architectures and System Software, Summer 2011***
 
 
