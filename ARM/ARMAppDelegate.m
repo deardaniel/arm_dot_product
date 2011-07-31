@@ -25,11 +25,20 @@ int test(int32_t *,int32_t *, int32_t);
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
 
-    int32_t x[] = { 10, 20, 30, 40 };
-    int32_t y[] = { 10, 9, 8, 7 };
+    int32_t x[] = { 10, 20, 30, 40, 2 };
+    int32_t y[] = { 10, 9, 8, 7, 4 };
     
-    int32_t res = test(x, y, 4);
-    NSLog(@"Result: %d", res);
+    int32_t res = test(x, y, 5);
+    NSLog(@"Result (5): %d", res);
+
+    res = test(x, y, 4);
+    NSLog(@"Result (4): %d", res);
+    
+    res = test(x, y, 3);
+    NSLog(@"Result (3): %d", res);
+    
+    res = test(x, y, 0);
+    NSLog(@"Result (0): %d", res);
 
     return YES;
 }

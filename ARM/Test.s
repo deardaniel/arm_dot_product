@@ -15,52 +15,60 @@
 .globl _test
 
 _test:
+    push {r6}
+    mov r6,#0
+
+    cmp r2, #0
+    beq .Lend
 
 #ifdef __arm__
+
 #ifdef __ARM_NEON__
 
-    vstmdb sp!, {d0-d5}
-    vmov.s32 q0,#0
+    cmp r2, #4
+    blt .Lfinal 
+        vstmdb sp!, {d0-d5}
+            vmov.s32 q0,#0
 
-    //VLD1.S16          {Q0, Q1}, [r0]!
-    vld1.s32 {q1},[r0]!
-    vld1.s32 {q2},[r1]!
+            .Lneonloop:
 
-    vmul.s32 q1, q1, q2
+                vld1.s32 {q1},[r0]!
+                vld1.s32 {q2},[r1]!
 
-    vpadd.s32 d0, d2, d3
-    vpadd.s32 d0, d0, d0
-    vmov.s32 r0, s0
+                vmul.s32 q1, q1, q2
 
-    vldmia sp!, {d0-d5}
+                vpadd.s32 d0, d2, d3
+                vpadd.s32 d0, d0, d0
+                subs r2, r2, #4
+                cmp r2, #4
+                bge .Lneonloop
 
-#else 
+            vmov.s32 r6, s0
 
-
-    push {r4-r7}
-
-        mov r6,#0
-
-        .Lloop:
-            ldr r4,[r0],#4
-            ldr r5,[r1],#4
-
-            mul r4,r4,r5
-            add r6,r6,r4
-
-            subs r2,r2,#1
-            bne .Lloop
-
-        mov r0, r6
-
-    pop {r4-r7}
-
-
-
-
+        vldmia sp!, {d0-d5}
 #endif
 
-    mov pc,lr
+        .Lfinal:
+            cmp r2, #0
+            beq .Lend
+
+            push {r4-r5,r7}
+                .Lloop:
+                    ldr r4,[r0],#4
+                    ldr r5,[r1],#4
+
+                    mul r4,r4,r5
+                    add r6,r6,r4
+
+                    subs r2,r2,#1
+                    bne .Lloop
+
+            pop {r4-r5,r7}
+
+    .Lend:
+        mov r0, r6
+        pop {r6}
+        mov pc,lr
 
 #endif
 
