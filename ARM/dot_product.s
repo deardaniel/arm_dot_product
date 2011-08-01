@@ -1,5 +1,5 @@
 //
-//  Test.s
+//  dot_product.s
 //  ARM
 //
 //  Created by Daniel Heffernan on 30/07/2011.
@@ -117,5 +117,14 @@ _dot_product_float_asm:
 
         mov pc,lr
 #endif
+
+#endif
+
+#ifdef __i386__
+
+.globl _dot_product_int32_asm
+_dot_product_int32_asm:
+    movl $255,%eax
+    ret
 
 #endif
