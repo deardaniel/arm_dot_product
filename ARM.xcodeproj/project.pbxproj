@@ -10,40 +10,22 @@
 		652ADA7A13E3EC1000D5143D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADA7913E3EC1000D5143D /* UIKit.framework */; };
 		652ADA7C13E3EC1000D5143D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADA7B13E3EC1000D5143D /* Foundation.framework */; };
 		652ADA7E13E3EC1000D5143D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADA7D13E3EC1000D5143D /* CoreGraphics.framework */; };
-		652ADA8413E3EC1000D5143D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 652ADA8213E3EC1000D5143D /* InfoPlist.strings */; };
 		652ADA8613E3EC1000D5143D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 652ADA8513E3EC1000D5143D /* main.m */; };
-		652ADA8A13E3EC1000D5143D /* ARMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 652ADA8913E3EC1000D5143D /* ARMAppDelegate.m */; };
-		652ADA8D13E3EC1000D5143D /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 652ADA8B13E3EC1000D5143D /* MainWindow.xib */; };
-		652ADA9013E3EC1000D5143D /* ARMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 652ADA8F13E3EC1000D5143D /* ARMViewController.m */; };
-		652ADA9313E3EC1000D5143D /* ARMViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 652ADA9113E3EC1000D5143D /* ARMViewController.xib */; };
-		652ADA9B13E3EC1000D5143D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADA9A13E3EC1000D5143D /* SenTestingKit.framework */; };
-		652ADA9C13E3EC1000D5143D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADA7913E3EC1000D5143D /* UIKit.framework */; };
-		652ADA9D13E3EC1000D5143D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADA7B13E3EC1000D5143D /* Foundation.framework */; };
-		652ADA9E13E3EC1000D5143D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADA7D13E3EC1000D5143D /* CoreGraphics.framework */; };
 		652ADAB713E3EF7200D5143D /* dot_product.s in Sources */ = {isa = PBXBuildFile; fileRef = 652ADAB313E3EC4E00D5143D /* dot_product.s */; };
 		652ADABA13E3F64D00D5143D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADAB913E3F64D00D5143D /* Accelerate.framework */; };
 		654B38E913E5BA4400104E9D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 652ADA8513E3EC1000D5143D /* main.m */; };
-		654B38EA13E5BA4400104E9D /* ARMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 652ADA8913E3EC1000D5143D /* ARMAppDelegate.m */; };
-		654B38EB13E5BA4400104E9D /* ARMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 652ADA8F13E3EC1000D5143D /* ARMViewController.m */; };
 		654B38EC13E5BA4400104E9D /* dot_product.s in Sources */ = {isa = PBXBuildFile; fileRef = 652ADAB313E3EC4E00D5143D /* dot_product.s */; };
 		654B38EE13E5BA4400104E9D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADAB913E3F64D00D5143D /* Accelerate.framework */; };
 		654B38EF13E5BA4400104E9D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADA7913E3EC1000D5143D /* UIKit.framework */; };
 		654B38F013E5BA4400104E9D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADA7B13E3EC1000D5143D /* Foundation.framework */; };
 		654B38F113E5BA4400104E9D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADA7D13E3EC1000D5143D /* CoreGraphics.framework */; };
-		654B38F313E5BA4400104E9D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 652ADA8213E3EC1000D5143D /* InfoPlist.strings */; };
-		654B38F413E5BA4400104E9D /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 652ADA8B13E3EC1000D5143D /* MainWindow.xib */; };
-		654B38F513E5BA4400104E9D /* ARMViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 652ADA9113E3EC1000D5143D /* ARMViewController.xib */; };
+		654B38FF13E7177700104E9D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 652ADA8513E3EC1000D5143D /* main.m */; };
+		654B390213E7177700104E9D /* dot_product.s in Sources */ = {isa = PBXBuildFile; fileRef = 652ADAB313E3EC4E00D5143D /* dot_product.s */; };
+		654B390413E7177700104E9D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADAB913E3F64D00D5143D /* Accelerate.framework */; };
+		654B390513E7177700104E9D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADA7913E3EC1000D5143D /* UIKit.framework */; };
+		654B390613E7177700104E9D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADA7B13E3EC1000D5143D /* Foundation.framework */; };
+		654B390713E7177700104E9D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADA7D13E3EC1000D5143D /* CoreGraphics.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		652ADA9F13E3EC1000D5143D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 652ADA6C13E3EC0F00D5143D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 652ADA7413E3EC0F00D5143D;
-			remoteInfo = ARM;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		652ADA7513E3EC0F00D5143D /* ARMv7.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARMv7.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,22 +33,15 @@
 		652ADA7B13E3EC1000D5143D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		652ADA7D13E3EC1000D5143D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		652ADA8113E3EC1000D5143D /* ARM-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ARM-Info.plist"; sourceTree = "<group>"; };
-		652ADA8313E3EC1000D5143D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		652ADA8513E3EC1000D5143D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		652ADA8713E3EC1000D5143D /* ARM-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ARM-Prefix.pch"; sourceTree = "<group>"; };
-		652ADA8813E3EC1000D5143D /* ARMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARMAppDelegate.h; sourceTree = "<group>"; };
-		652ADA8913E3EC1000D5143D /* ARMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARMAppDelegate.m; sourceTree = "<group>"; };
-		652ADA8C13E3EC1000D5143D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
-		652ADA8E13E3EC1000D5143D /* ARMViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARMViewController.h; sourceTree = "<group>"; };
-		652ADA8F13E3EC1000D5143D /* ARMViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARMViewController.m; sourceTree = "<group>"; };
-		652ADA9213E3EC1000D5143D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ARMViewController.xib; sourceTree = "<group>"; };
-		652ADA9913E3EC1000D5143D /* ARMTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ARMTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		652ADA9A13E3EC1000D5143D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		652ADAB313E3EC4E00D5143D /* dot_product.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = dot_product.s; sourceTree = "<group>"; };
 		652ADAB913E3F64D00D5143D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		654B38F913E5BA4400104E9D /* ARMv6.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARMv6.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		654B38FB13E5BA4500104E9D /* ARM copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ARM copy-Info.plist"; path = "/Users/daniel/Dropbox/University/Assignments/4810-1164 Modern Computer Architectures and System Software/ARM/ARM copy-Info.plist"; sourceTree = "<absolute>"; };
 		654B38FC13E5DA4600104E9D /* README.markdown */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.markdown; sourceTree = SOURCE_ROOT; };
+		654B390F13E7177700104E9D /* x86.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = x86.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,17 +56,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		652ADA9513E3EC1000D5143D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				652ADA9B13E3EC1000D5143D /* SenTestingKit.framework in Frameworks */,
-				652ADA9C13E3EC1000D5143D /* UIKit.framework in Frameworks */,
-				652ADA9D13E3EC1000D5143D /* Foundation.framework in Frameworks */,
-				652ADA9E13E3EC1000D5143D /* CoreGraphics.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		654B38ED13E5BA4400104E9D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -100,6 +64,17 @@
 				654B38EF13E5BA4400104E9D /* UIKit.framework in Frameworks */,
 				654B38F013E5BA4400104E9D /* Foundation.framework in Frameworks */,
 				654B38F113E5BA4400104E9D /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		654B390313E7177700104E9D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				654B390413E7177700104E9D /* Accelerate.framework in Frameworks */,
+				654B390513E7177700104E9D /* UIKit.framework in Frameworks */,
+				654B390613E7177700104E9D /* Foundation.framework in Frameworks */,
+				654B390713E7177700104E9D /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,8 +95,8 @@
 			isa = PBXGroup;
 			children = (
 				652ADA7513E3EC0F00D5143D /* ARMv7.app */,
-				652ADA9913E3EC1000D5143D /* ARMTests.octest */,
 				654B38F913E5BA4400104E9D /* ARMv6.app */,
+				654B390F13E7177700104E9D /* x86.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -141,13 +116,8 @@
 		652ADA7F13E3EC1000D5143D /* ARM */ = {
 			isa = PBXGroup;
 			children = (
+				652ADA8513E3EC1000D5143D /* main.m */,
 				652ADAB313E3EC4E00D5143D /* dot_product.s */,
-				652ADA8813E3EC1000D5143D /* ARMAppDelegate.h */,
-				652ADA8913E3EC1000D5143D /* ARMAppDelegate.m */,
-				652ADA8B13E3EC1000D5143D /* MainWindow.xib */,
-				652ADA8E13E3EC1000D5143D /* ARMViewController.h */,
-				652ADA8F13E3EC1000D5143D /* ARMViewController.m */,
-				652ADA9113E3EC1000D5143D /* ARMViewController.xib */,
 				652ADA8013E3EC1000D5143D /* Supporting Files */,
 			);
 			path = ARM;
@@ -157,8 +127,6 @@
 			isa = PBXGroup;
 			children = (
 				652ADA8113E3EC1000D5143D /* ARM-Info.plist */,
-				652ADA8213E3EC1000D5143D /* InfoPlist.strings */,
-				652ADA8513E3EC1000D5143D /* main.m */,
 				652ADA8713E3EC1000D5143D /* ARM-Prefix.pch */,
 				654B38FC13E5DA4600104E9D /* README.markdown */,
 			);
@@ -185,25 +153,6 @@
 			productReference = 652ADA7513E3EC0F00D5143D /* ARMv7.app */;
 			productType = "com.apple.product-type.application";
 		};
-		652ADA9813E3EC1000D5143D /* ARMTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 652ADAB013E3EC1000D5143D /* Build configuration list for PBXNativeTarget "ARMTests" */;
-			buildPhases = (
-				652ADA9413E3EC1000D5143D /* Sources */,
-				652ADA9513E3EC1000D5143D /* Frameworks */,
-				652ADA9613E3EC1000D5143D /* Resources */,
-				652ADA9713E3EC1000D5143D /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				652ADAA013E3EC1000D5143D /* PBXTargetDependency */,
-			);
-			name = ARMTests;
-			productName = ARMTests;
-			productReference = 652ADA9913E3EC1000D5143D /* ARMTests.octest */;
-			productType = "com.apple.product-type.bundle";
-		};
 		654B38E713E5BA4400104E9D /* ARMv6 */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 654B38F613E5BA4400104E9D /* Build configuration list for PBXNativeTarget "ARMv6" */;
@@ -219,6 +168,23 @@
 			name = ARMv6;
 			productName = ARM;
 			productReference = 654B38F913E5BA4400104E9D /* ARMv6.app */;
+			productType = "com.apple.product-type.application";
+		};
+		654B38FD13E7177700104E9D /* x86 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 654B390C13E7177700104E9D /* Build configuration list for PBXNativeTarget "x86" */;
+			buildPhases = (
+				654B38FE13E7177700104E9D /* Sources */,
+				654B390313E7177700104E9D /* Frameworks */,
+				654B390813E7177700104E9D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = x86;
+			productName = ARM;
+			productReference = 654B390F13E7177700104E9D /* x86.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -240,23 +206,13 @@
 			targets = (
 				652ADA7413E3EC0F00D5143D /* ARMv7 */,
 				654B38E713E5BA4400104E9D /* ARMv6 */,
-				652ADA9813E3EC1000D5143D /* ARMTests */,
+				654B38FD13E7177700104E9D /* x86 */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		652ADA7313E3EC0F00D5143D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				652ADA8413E3EC1000D5143D /* InfoPlist.strings in Resources */,
-				652ADA8D13E3EC1000D5143D /* MainWindow.xib in Resources */,
-				652ADA9313E3EC1000D5143D /* ARMViewController.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		652ADA9613E3EC1000D5143D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -267,29 +223,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				654B38F313E5BA4400104E9D /* InfoPlist.strings in Resources */,
-				654B38F413E5BA4400104E9D /* MainWindow.xib in Resources */,
-				654B38F513E5BA4400104E9D /* ARMViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		654B390813E7177700104E9D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		652ADA9713E3EC1000D5143D /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		652ADA7113E3EC0F00D5143D /* Sources */ = {
@@ -297,16 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				652ADA8613E3EC1000D5143D /* main.m in Sources */,
-				652ADA8A13E3EC1000D5143D /* ARMAppDelegate.m in Sources */,
-				652ADA9013E3EC1000D5143D /* ARMViewController.m in Sources */,
 				652ADAB713E3EF7200D5143D /* dot_product.s in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		652ADA9413E3EC1000D5143D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,48 +250,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				654B38E913E5BA4400104E9D /* main.m in Sources */,
-				654B38EA13E5BA4400104E9D /* ARMAppDelegate.m in Sources */,
-				654B38EB13E5BA4400104E9D /* ARMViewController.m in Sources */,
 				654B38EC13E5BA4400104E9D /* dot_product.s in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		654B38FE13E7177700104E9D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				654B38FF13E7177700104E9D /* main.m in Sources */,
+				654B390213E7177700104E9D /* dot_product.s in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		652ADAA013E3EC1000D5143D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 652ADA7413E3EC0F00D5143D /* ARMv7 */;
-			targetProxy = 652ADA9F13E3EC1000D5143D /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		652ADA8213E3EC1000D5143D /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				652ADA8313E3EC1000D5143D /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		652ADA8B13E3EC1000D5143D /* MainWindow.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				652ADA8C13E3EC1000D5143D /* en */,
-			);
-			name = MainWindow.xib;
-			sourceTree = "<group>";
-		};
-		652ADA9113E3EC1000D5143D /* ARMViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				652ADA9213E3EC1000D5143D /* en */,
-			);
-			name = ARMViewController.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		652ADAAB13E3EC1000D5143D /* Debug */ = {
@@ -407,7 +314,7 @@
 		652ADAAE13E3EC1000D5143D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				ARCHS = armv7;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ARM/ARM-Prefix.pch";
 				INFOPLIST_FILE = "ARM/ARM-Info.plist";
@@ -418,45 +325,11 @@
 		652ADAAF13E3EC1000D5143D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				ARCHS = armv7;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ARM/ARM-Prefix.pch";
 				INFOPLIST_FILE = "ARM/ARM-Info.plist";
 				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		652ADAB113E3EC1000D5143D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ARM.app/ARM";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ARM/ARM-Prefix.pch";
-				INFOPLIST_FILE = "ARMTests/ARMTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		652ADAB213E3EC1000D5143D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ARM.app/ARM";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ARM/ARM-Prefix.pch";
-				INFOPLIST_FILE = "ARMTests/ARMTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
@@ -466,7 +339,7 @@
 				ARCHS = armv6;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ARM/ARM-Prefix.pch";
-				INFOPLIST_FILE = "ARM-Info.plist";
+				INFOPLIST_FILE = "ARM/ARM-Info.plist";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -477,7 +350,29 @@
 				ARCHS = armv6;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ARM/ARM-Prefix.pch";
-				INFOPLIST_FILE = "ARM-Info.plist";
+				INFOPLIST_FILE = "ARM/ARM-Info.plist";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		654B390D13E7177700104E9D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ARM/ARM-Prefix.pch";
+				INFOPLIST_FILE = "ARM/ARM-Info.plist";
+				PRODUCT_NAME = x86;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		654B390E13E7177700104E9D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ARM/ARM-Prefix.pch";
+				INFOPLIST_FILE = "ARM/ARM-Info.plist";
+				PRODUCT_NAME = x86;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -503,20 +398,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		652ADAB013E3EC1000D5143D /* Build configuration list for PBXNativeTarget "ARMTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				652ADAB113E3EC1000D5143D /* Debug */,
-				652ADAB213E3EC1000D5143D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		654B38F613E5BA4400104E9D /* Build configuration list for PBXNativeTarget "ARMv6" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				654B38F713E5BA4400104E9D /* Debug */,
 				654B38F813E5BA4400104E9D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		654B390C13E7177700104E9D /* Build configuration list for PBXNativeTarget "x86" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				654B390D13E7177700104E9D /* Debug */,
+				654B390E13E7177700104E9D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
