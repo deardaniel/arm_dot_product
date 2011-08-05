@@ -1,0 +1,29 @@
+ARM
+===
+http://www.simplemachines.it/doc/arm_inst.pdf
+http://www.coranac.com/tonc/text/asm.htm
+
+Floating Point
+==============
+http://www.heyrick.co.uk/assembler/fpops.html
+
+NEON
+====
+http://pixhawk.ethz.ch/wiki/_media/software/optimization/neon_support_in_the_arm_compiler.pdf
+http://www.delmarnorth.com/microwave/requirements/neon-test-tutorial.pdf
+
+Blogs
+=====
+http://apangborn.com/tag/arm/
+http://wanderingcoder.net/2010/06/02/intro-neon/
+http://wanderingcoder.net/2010/07/19/ought-arm/
+
+Reference
+=========
+ARM Information Center
+ARM Development Suite -> ARM Developer Suite Assembler Guide
+
+ARM Instruction Set Quick Reference Card
+
+! AAPCS : http://infocenter.arm.com/help/topic/com.arm.doc.ihi0042d/IHI0042D_aapcs.pdf
+! iOS ABI  : http://developer.apple.com/library/ios/#documentation/Xcode/Conceptual/iPhoneOSABIReference/Articles/ARMv6FunctionCallingConventions.html

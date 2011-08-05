@@ -1,0 +1,121 @@
+%
+%  untitled
+%
+%  Created by Daniel Heffernan on 2011-08-04.
+%  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+%
+\documentclass[oneside,a4paper]{article}
+
+% Use utf-8 encoding for foreign characters
+\usepackage[utf8]{inputenc}
+
+% Setup for fullpage use
+\usepackage{fullpage}
+
+\usepackage[usenames,dvipsnames]{color}
+
+% Uncomment some of the following if you use the features
+%
+% Running Headers and footers
+%\usepackage{fancyhdr}
+
+% Multipart figures
+%\usepackage{subfigure}
+
+% More symbols
+%\usepackage{amsmath}
+%\usepackage{amssymb}
+%\usepackage{latexsym}
+
+% Surround parts of graphics with box
+\usepackage{boxedminipage}
+
+% Package for including code in the document
+\usepackage{listings}
+
+\lstdefinelanguage[ARM]{Assembler}%
+  {morekeywords=[1]{.text,.globl,.align},%
+  morekeywords=[2]{add,beq,bge,blt,bne,cmp,ldr,mov,mul,pop,push,%
+    subs,vadd,vld1,vldm,vmov,vmul,vpadd,vpop,vpush},%
+   morekeywords=[3]{f32,s32,i32},%
+   keywordsprefix=.,%
+   sensitive,%
+   morecomment=[l]//,% nonstandard
+   moredelim=*[directive]\#,%
+   moredirectives={define,elif,else,endif,error,if,ifdef,ifndef,line,%
+      include,pragma,undef,warning}%
+  }[keywords,comments,directives]
+
+\lstset{
+  numbers=left,
+  numberstyle=\tiny,
+  numbersep=10pt,
+  basicstyle=\small\ttfamily,
+  keywordstyle=[1]\color{RedOrange},
+  keywordstyle=[2]\color{RoyalBlue},
+  keywordstyle=[3]\color{Mulberry},
+  identifierstyle=,
+  commentstyle=\color{OliveGreen},
+  stringstyle=\ttfamily,
+  directivestyle=\color{OliveGreen},
+  showstringspaces=false
+}
+
+% This is now the recommended way for checking for PDFLaTeX:
+\usepackage{ifpdf}
+
+%\newif\ifpdf
+%\ifx\pdfoutput\undefined
+%\pdffalse % we are not running PDFLaTeX
+%\else
+%\pdfoutput=1 % we are running PDFLaTeX
+%\pdftrue
+%\fi
+
+\ifpdf
+\usepackage[pdftex]{graphicx}
+\else
+\usepackage{graphicx}
+\fi
+\title{ \textbf{ARM} \\ \large{4810-1164 Modern Computer Architectures and System Software}}
+\author{ \textbf{Daniel Heffernan} \\ Creative Informatics (M1) -- 48-116625 }
+
+\begin{document}
+
+\ifpdf
+\DeclareGraphicsExtensions{.pdf, .jpg, .tif}
+\else
+\DeclareGraphicsExtensions{.eps, .jpg}
+\fi
+
+\maketitle
+
+
+\begin{abstract}
+    The ARM architecture has existed since \emph{whenever}. In this report I will introduce the architecture under various headings and finally demonstrate an implementation of ARM assembly.
+\end{abstract}
+
+\section{Introduction}
+\section{Main Features}
+\section{Registers}
+\subsection{Register Format}
+\subsection{Word Length}
+\subsection{Access Methods}
+\section{Data Types}
+\section{Instruction Format}
+\section{Unusual Instructions}
+\section{Memory Management}
+\section{ARM Assembly Programming Example}
+
+\renewcommand*{\refname}{\section{References}}
+\bibliographystyle{plain}
+\bibliography{}
+
+\clearpage
+
+\appendix
+\section{ARM Assembly Programming Example -- Inner Product of Two Vectors}
+  
+\lstinputlisting[language={[ARM]Assembler}]{ARM/ARM/dot_product.s}
+
+\end{document}
