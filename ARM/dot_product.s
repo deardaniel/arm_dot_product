@@ -1,9 +1,7 @@
 //
 //  dot_product.s
-//  ARM
 //
 //  Created by Daniel Heffernan on 30/07/2011.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
 #ifdef __arm__
@@ -22,7 +20,7 @@ _dot_product_int32_asm:
 #ifdef __ARM_NEON__
 
     cmp r2, #8
-    blt .Lsingle
+    blt .Lsingleloop
 
     vmov.s32 q0,#0
 
@@ -51,16 +49,15 @@ _dot_product_int32_asm:
 
 #endif
 
-    .Lsingle:
-        .Lloop:
-            ldr r4,[r0],#4
-            ldr r5,[r1],#4
+    .Lsingleloop:
+        ldr r4,[r0],#4
+        ldr r5,[r1],#4
 
-            mul r4,r4,r5
-            add r6,r6,r4
+        mul r4,r4,r5
+        add r6,r6,r4
 
-            subs r2,r2,#1
-            bne .Lloop
+        subs r2,r2,#1
+        bne .Lsingleloop
 
 
     .Lend:
@@ -78,7 +75,7 @@ _dot_product_float_asm:
     beq .Lfend
 
     cmp r2, #8
-    blt .Lfsingle
+    blt .Lfsingleloop
 
     .Lfbatchloop:
         vld1.f32 {q1-q2},[r0]!
@@ -101,16 +98,15 @@ _dot_product_float_asm:
     cmp r2, #0
     beq .Lfend
 
-    .Lfsingle:
-        .Lfloop:
-            vldm r0!, {s1}
-            vldm r1!, {s2}
+    .Lfsingleloop:
+        vldm r0!, {s1}
+        vldm r1!, {s2}
 
-            vmul.f32 s1,s1,s2
-            vadd.f32 s0,s0,s1
+        vmul.f32 s1,s1,s2
+        vadd.f32 s0,s0,s1
 
-            subs r2,r2,#1
-            bne .Lfloop
+        subs r2,r2,#1
+        bne .Lfsingleloop
 
     .Lfend:
         vmov r0, s0
