@@ -12,15 +12,14 @@
 
 #define MAX_TEST_VALUE 100
 #define TEST_VALUES 10, 100, 500, 1000, 2000, 4000, 8000, 16000, 32000, 64000, 128000, 256000, 512000
-#define MAX_ABS_ERROR 1.0e-5
 #define TEST_ITERATIONS
 
-void test_int32(int32_t *,int32_t *, int32_t);
+void test_int32(int32_t *,int32_t *, int32_t, FILE *log);
 int32_t dot_product_int32(int32_t *,int32_t *, int32_t);
 int32_t dot_product_int32_accelerate(int32_t *,int32_t *, int32_t);
 int32_t dot_product_int32_asm(int32_t *,int32_t *, int32_t);
 
-void test_int32(int32_t *x,int32_t *y, int32_t n) {
+void test_int32(int32_t *x,int32_t *y, int32_t n, FILE *log) {
     mach_timebase_info_data_t info;
     mach_timebase_info(&info);
     
@@ -34,11 +33,10 @@ void test_int32(int32_t *x,int32_t *y, int32_t n) {
     uint64_t asmTime = mach_absolute_time() - asmStart;
     asmTime = asmTime * info.numer / info.denom;
 
-    printf("%d,%d,%d,%llu,%llu\n",
+    fprintf(log, "%d,%d,%d,%llu,%llu\n",
            n,
            cResult,
            asmResult,
-//           cResult == asmResult ? "SUCCESS" : "FAIL",
            cTime,
            asmTime);
 }
@@ -61,12 +59,12 @@ int32_t dot_product_int32_accelerate(int32_t *x,int32_t *y, int32_t n) {
 }
 
 #ifdef __ARM_NEON__
-void test_float(float *,float *, int32_t);
+void test_float(float *,float *, int32_t, FILE *log);
 float dot_product_float(float *,float *, int32_t);
 float dot_product_float_accelerate(float *,float *, int32_t);
 float dot_product_float_asm(float *,float *, int32_t);
 
-void test_float(float *x,float *y, int32_t n) {
+void test_float(float *x,float *y, int32_t n, FILE *log) {
     mach_timebase_info_data_t info;
     mach_timebase_info(&info);
     
@@ -85,13 +83,11 @@ void test_float(float *x,float *y, int32_t n) {
     uint64_t asmTime = mach_absolute_time() - asmStart;
     asmTime = asmTime * info.numer / info.denom;
 
-//    float error = fabs(asmResult - (cResult + accelerateResult) / 2.0f) / cResult;
-    printf("%d,%f,%f,%f,%llu,%llu,%llu\n",
+    fprintf(log, "%d,%f,%f,%f,%llu,%llu,%llu\n",
            n,
            cResult,
            accelerateResult,
            asmResult,
-//           error < MAX_ABS_ERROR ? "OK" : "HIGH-ERROR", 
            cTime,
            accelerateTime,
            asmTime);
@@ -113,6 +109,21 @@ float dot_product_float_accelerate(float *x,float *y, int32_t n) {
 
 int main(int argc, char *argv[])
 {
+    
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    NSString *documentsDirectory;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains
+    (NSDocumentDirectory, NSUserDomainMask, YES);
+    if ([paths count] > 0)  {
+        documentsDirectory = [paths objectAtIndex:0];
+    }
+    
+    FILE *int32_log = fopen([[documentsDirectory stringByAppendingPathComponent:@"ints.csv"] UTF8String], "a");
+    FILE *float_log = fopen([[documentsDirectory stringByAppendingPathComponent:@"floats.csv"] UTF8String], "a");
+    [pool release];
+    
+    srand(time(NULL));
+    
     const int test_values[] = { TEST_VALUES };
     const int test_value_count = sizeof(test_values) / sizeof(*test_values);
     int max_vector_length = 0;
@@ -127,10 +138,10 @@ int main(int argc, char *argv[])
             y[i] = rand() % MAX_TEST_VALUE;
         }
         
-        printf("n,C Result,ASM Result,C Time,ASM Time\n");
+        fprintf(int32_log, "n,C Result,ASM Result,C Time,ASM Time\n");
         
         for (int i=0; i < test_value_count; i++)
-            test_int32(x, y, test_values[i]);
+            test_int32(x, y, test_values[i], int32_log);
     }
 #ifdef __ARM_NEON__
     {
@@ -142,20 +153,15 @@ int main(int argc, char *argv[])
             y[i] = ((float)rand()/RAND_MAX) * MAX_TEST_VALUE;
         }
         
-        printf("n,C Result,vDSP Result,ASM Result,C Time,vDSP Time,ASM Time\n");
-//        printf("x = ( ");
-//        for (int i=0; i<max_vector_length; i++)
-//            printf("%f ", x[i]);
-//        printf(")\n y = ( ");
-//        for (int i=0; i<max_vector_length; i++)
-//            printf("%f ", y[i]);
-//        printf(")\n\n");
+        fprintf(float_log, "n,C Result,vDSP Result,ASM Result,C Time,vDSP Time,ASM Time\n");
         
         for (int i=0; i < test_value_count; i++)
-            test_float(x, y, test_values[i]);
+            test_float(x, y, test_values[i], float_log);
         
     }
 #endif
-    fflush(stdout);
+    fclose(int32_log);
+    fclose(float_log);
+
     return 0;
 }
