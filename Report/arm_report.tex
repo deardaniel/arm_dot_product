@@ -97,25 +97,60 @@
 
 \section{Introduction}
 \section{Main Features}
+A1
 \section{Registers}
+A2
 \subsection{Register Format}
+A2?
 \subsection{Word Length}
 \subsection{Access Methods}
+Virtual memory and cache?
 \section{Data Types}
+doubleword, 64-bit
+• word, 32-bit
+• halfword, 16-bit
+• byte, 8-bit.
+unsigned is two's complement
+
+mixed-endian (E-bit in Program Status Register) and unaligned support but should be aligned for best performance
+2.14
+
+
+A2
+A3
+2-14
 \section{Instruction Format}
+instruction order
+ARM
+Thumb
+ThumbEE
+
+conditional instructions
+APSR
+
+A4
+A5.1
+Condition execution A8-8
 \section{Unusual Instructions}
+Perhaps in A4.4.6, A4.4.7, A4.8
+bit fields?
 \section{Memory Management}
+A3
+B2
+
+6-2
 \section{ARM Assembly Programming Example}
+iOS ABI Function Call Guide\cite{iOSABI}
 
 \renewcommand*{\refname}{\section{References}}
 \bibliographystyle{plain}
-\bibliography{}
+\bibliography{ARM_Report}
 
 \clearpage
 
 \appendix
 \section{ARM Assembly Programming Example -- Inner Product of Two Vectors}
   
-\lstinputlisting[language={[ARM]Assembler}]{ARM/ARM/dot_product.s}
+\lstinputlisting[language={[ARM]Assembler}]{../ARM/dot_product.s}
 
 \end{document}
