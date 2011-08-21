@@ -7,11 +7,13 @@
 % Setup for fullpage use
 \usepackage{fullpage}
 \usepackage[usenames,dvipsnames]{color}
-\usepackage[colorlinks=true,citecolor=OrangeRed,urlcolor=NavyBlue,linkcolor=ForestGreen]{hyperref}
 %\usepackage{subfigure}
 % \usepackage{boxedminipage}
 \usepackage{listings}
 \usepackage{booktabs}
+\usepackage{setspace}
+
+\linespread{1.6}
 
 \lstdefinelanguage[ARM]{Assembler}%
   {morekeywords=[1]{.text,.globl,.align},%
@@ -58,6 +60,9 @@
 \usepackage{graphicx}
 \fi
 
+\usepackage[colorlinks=true,citecolor=OrangeRed,urlcolor=NavyBlue,linkcolor=ForestGreen]{hyperref}
+\usepackage[all]{hypcap}
+
 \title{ \textbf{ARM Cortex-A8} \\ \large{4810-1164 Modern Computer Architectures and System Software}}
 \author{ \textbf{Daniel Heffernan} \\ Creative Informatics (M1) -- 48-116625 }
 
@@ -73,7 +78,7 @@
 
 \chapter{Introduction}
 
-It is very popular recently, and its popularity is marked by its use by Apple as the CPU in the Apple A4 SoC (System on Chip), which powers Apple's iPad and iPhone 4. It is also notable for being the first implementation of the ARMv7 instruction set architecture which includes NEON \cite{Gris}, the \emph{single instruction, multiple data} (SIMD) unit which implements floating point (VFPv3) and SIMD \emph{Advanced SIMD} instruction sets, and for operating at speeds of up to 1GHz in very low-power environments (sub-1W, and often around 300mW) \cite{Williamson}.
+It is very popular recently, and its popularity is marked by its use by Apple as the CPU in the Apple A4 SoC (System on Chip), which powers Apple's iPad and iPhone 4. It is also notable for being the first implementation of the ARMv7 instruction set architecture which includes NEON \cite{Gris}, the \emph{single instruction, multiple data} (SIMD) unit which implements floating point (VFPv3) and SIMD (Advanced SIMD) instruction sets, and for operating at speeds of up to 1GHz in very low-power environments (sub-1W, and often around 300mW) \cite{Williamson}.
 
 There are three Cortex series: Cortex-A, Cortex-R and Cortex-M. They are so named because of each series' ARMv7 instruction set profile. ARMv7-A is one of three available profiles of ARMv7 \cite[p. A1-4]{ARMRef}, and is used in the Cortex-A series. Cortex-R uses ARMv7-R, which is a real-time variant which uses a \emph{Protected Memory System Architecture} (PMSA) instead of ARMv7-A's \emph{Virtual Memory System Architecture} (VMSA). The Cortex-M series processors use the ARMv7-M profile, which is a microcontroller variant of ARMv7.
 
@@ -86,7 +91,7 @@ There are three Cortex series: Cortex-A, Cortex-R and Cortex-M. They are so name
 
 \chapter{Main Features}
 
-ARM is a reduced instruction set computer (RISC) architecture. It is a load/store architecture, meaning that its operations are performed on register contents, which are loaded from memory, and then stored back to memory; it does not perform operations directly on memory contents. It performs integer operations in a 13-stage pipeline, and floating point operations in a 10-stage NEON pipeline. The full pipeline is illustrated in Figure~\ref{fig:pipeline}.
+ARM is a \emph{reduced instruction set computer} (RISC) architecture. It is a load/store architecture, meaning that its operations are performed on register contents, which are loaded from memory, and then stored back to memory; it does not perform operations directly on memory contents. It performs integer operations in a 13-stage pipeline, and floating point operations in a 10-stage NEON pipeline. The full pipeline is illustrated in Figure~\ref{fig:pipeline}.
 
 The Cortex-A8 is a in-order, dual-issue, superscalar microprocessor core that supports the following instruction sets:
 \begin{description}
@@ -121,16 +126,9 @@ The processor has 40 registers \cite[p. 2-18]{A8Ref}. This includes 33 general-p
 
 The NEON unit also has its own registers for use in VFP and NEON operations. There are 8 128-bit (quad-word) registers available. These can also be addressed as 16 double-word registers or 32 single-word registers. This is illustrated in Table~\ref{tab:registers}.
 
-A2
-
-Register Format
-Access Methods
-
-Virtual memory and cache?
-
-
 \begin{table}[p]
 	\centering
+	\singlespacing
 	\include{tab_registers}
 	\caption{User-mode registers. Compiled from \cite[p. 15]{AAPCS} and \cite[p. 14--15]{iOSABI}.}
 	\label{tab:registers}
@@ -159,9 +157,6 @@ There are four data types available for arithmetic operations in ARM mode \cite[
 Data can be signed (two's complement) or unsigned, and can be little- or big-endian ordered \cite[p. 4-2]{A8Ref}. The data order is indicated in the E-bit in the Application Program Status Register (APSR). This can been seen in Figure~\ref{fig:cpsr} as \emph{E: Data endianness bit}.
 
 Data access does not have to be aligned but for best performance data access should be word-aligned.
-
-A2
-A3
 
 \chapter{Instruction Format}
 
@@ -201,8 +196,22 @@ A3
 B2
 
 6-2
-\chapter{ARM Assembly Programming Example}
+\chapter{ARM Assembly Example}
 iOS ABI Function Call Guide \cite{iOSABI}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=1.0\textwidth]{./fig/ResultsChart.pdf}
+	\caption{\ldots}
+	\label{fig:results}
+\end{figure}
+
+\begin{table}[htb]
+	\centering
+	\includegraphics[width=1.0\textwidth]{./fig/ResultsTable.pdf}
+	\caption{\ldots}
+	\label{tab:results}
+\end{table}
 
 \bibliographystyle{plain}
 \bibliography{ARM_Report}
@@ -211,7 +220,9 @@ iOS ABI Function Call Guide \cite{iOSABI}
 
 \appendix
 \chapter{ARM Assembly Programming Example -- Inner Product of Two Vectors}
-  
-\lstinputlisting[language={[ARM]Assembler}]{../ARM/dot_product.s}
+
+\begin{singlespacing}
+\lstinputlisting[language={[ARM]Assembler}]{../ARM/dot_product.s}	
+\end{singlespacing}  
 
 \end{document}
