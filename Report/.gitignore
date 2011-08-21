@@ -6,5 +6,7 @@
 *.maf
 *.mtc
 *.mtc0
+*.out
 *.pdf
 *.synctex.gz
+!fig/*.pdf
