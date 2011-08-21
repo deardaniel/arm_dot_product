@@ -1,9 +1,4 @@
-%
-%  untitled
-%
-%  Created by Daniel Heffernan on 2011-08-04.
-%  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
-%
+%%!TEX encoding = UTF-8 Unicode 
 \documentclass[oneside,a4paper]{article}
 
 % Use utf-8 encoding for foreign characters
@@ -11,27 +6,12 @@
 
 % Setup for fullpage use
 \usepackage{fullpage}
-
 \usepackage[usenames,dvipsnames]{color}
-
-% Uncomment some of the following if you use the features
-%
-% Running Headers and footers
-%\usepackage{fancyhdr}
-
-% Multipart figures
+\usepackage[colorlinks=true,citecolor=OrangeRed,urlcolor=NavyBlue,linkcolor=ForestGreen]{hyperref}
 %\usepackage{subfigure}
-
-% More symbols
-%\usepackage{amsmath}
-%\usepackage{amssymb}
-%\usepackage{latexsym}
-
-% Surround parts of graphics with box
-\usepackage{boxedminipage}
-
-% Package for including code in the document
+% \usepackage{boxedminipage}
 \usepackage{listings}
+\usepackage{booktabs}
 
 \lstdefinelanguage[ARM]{Assembler}%
   {morekeywords=[1]{.text,.globl,.align},%
@@ -77,7 +57,8 @@
 \else
 \usepackage{graphicx}
 \fi
-\title{ \textbf{ARM} \\ \large{4810-1164 Modern Computer Architectures and System Software}}
+
+\title{ \textbf{ARM Cortex-A8} \\ \large{4810-1164 Modern Computer Architectures and System Software}}
 \author{ \textbf{Daniel Heffernan} \\ Creative Informatics (M1) -- 48-116625 }
 
 \begin{document}
@@ -96,20 +77,116 @@
 \end{abstract}
 
 \section{Introduction}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics{./fig/CortexA8.pdf}
+	\caption{Overview of the Cortex-A8 architecture from \cite[p. 1-4]{A8Ref}.}
+	\label{fig:cortexa8}
+\end{figure}
+
 \section{Main Features}
 A1
+
 \section{Registers}
 A2
-\subsection{Register Format}
-A2?
-\subsection{Word Length}
-\subsection{Access Methods}
+
+Register Format
+Word Length
+Access Methods
+
 Virtual memory and cache?
+
+
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{lllllll}
+		\toprule
+		Type						&	\multicolumn{3}{l}{Name}	&	Preserved	&	Notes						\\
+		\midrule
+	 	General-purpose register	&	\multicolumn{3}{l}{R0}		&	No			&	Argument/result/scratch 1   \\
+							 		&	\multicolumn{3}{l}{R1}		&	No			&	Argument/result/scratch 2   \\
+							 		&	\multicolumn{3}{l}{R2}		&	No			&	Argument/scratch 3			\\
+							 		&	\multicolumn{3}{l}{R3}		&	No			&	Argument/scratch 4			\\
+							 		&	\multicolumn{3}{l}{R4}		&	Yes			&	Variable register 1			\\
+							 		&	\multicolumn{3}{l}{R5}		&	Yes			&	Variable register 2			\\
+							 		&	\multicolumn{3}{l}{R6}		&	Yes			&	Variable register 3			\\
+							 		&	\multicolumn{3}{l}{R7}		&	Yes			&	Variable register 4 / Frame pointer on iOS	\\
+							 		&	\multicolumn{3}{l}{R8}		&	Yes			&	Variable register 5			\\
+							 		&	\multicolumn{3}{l}{R9}		&	Special		&	Platform register			\\
+							 		&	\multicolumn{3}{l}{R10}		&	Yes			&	Variable register 7			\\
+							 		&	\multicolumn{3}{l}{R11}		&	Yes			&	Variable register 8			\\
+							 		&	\multicolumn{3}{l}{R12}		&	No			&	The Intra-Procedure-call scratch register (IP)	\\
+							 		&	\multicolumn{3}{l}{R13}		&	Special		&	Stack pointer (SP)	 		\\
+							 		&	\multicolumn{3}{l}{R14}		&	Special		&	Link register (LR)	 		\\
+							 		&	\multicolumn{3}{l}{R15}		&	Special		&	Program counter (PC) 		\\
+		Program status register		&	\multicolumn{3}{l}{CPSR}	&	Special		&						 		\\
+		VFP / Advanced SIMD register&	Q0	&	D0	&	S0			&	No			&	  		\\
+									&		&		&	S1			&	No			&	  		\\
+									&		&	D1	&	S2			&	No			&	  		\\
+									&		&		&	S3			&	No			&	  		\\
+									&	Q1	&	D2	&	S4			&	No			&	  		\\
+									&		&		&	S5			&	No			&	  		\\
+									&		&	D3	&	S6			&	No			&	  		\\
+									&		&		&	S7			&	No			&	  		\\
+									&	Q2	&	D4	&	S8			&	No			&	  		\\
+									&		&		&	S9			&	No			&	  		\\
+									&		&	D5	&	S10			&	No			&	  		\\
+									&		&		&	S11			&	No			&	  		\\
+									&	Q3	&	D6	&	S12			&	No			&	  		\\
+									&		&		&	S13			&	No			&	  		\\
+									&		&	D7	&	S14			&	No			&	  		\\
+									&		&		&	S15			&	No			&	  		\\
+									&	Q4	&	D8	&	S16			&	Yes			&	  		\\
+									&		&		&	S17			&	Yes			&	  		\\
+									&		&	D9	&	S18			&	Yes			&	  		\\
+									&		&		&	S19			&	Yes			&	  		\\
+									&	Q5	&	D10	&	S20			&	Yes			&	  		\\
+									&		&		&	S21			&	Yes			&	  		\\
+									&		&	D11	&	S22			&	Yes			&	  		\\
+									&		&		&	S23			&	Yes			&	  		\\
+									&	Q6	&	D12	&	S24			&	Yes			&	  		\\
+									&		&		&	S25			&	Yes			&	  		\\
+									&		&	D13	&	S26			&	Yes			&	  		\\
+									&		&		&	S27			&	Yes			&	  		\\
+									&	Q7	&	D14	&	S28			&	Yes			&	  		\\
+									&		&		&	S29			&	Yes			&	  		\\
+									&		&	D15	&	S30			&	Yes			&	  		\\
+									&		&		&	S31			&	Yes			&	  		\\
+		VFP status register			&	\multicolumn{3}{l}{FPSCR}	&	Special		&						 		\\
+		\bottomrule
+	\end{tabular}
+	\caption{User-mode registers. Compiled from \cite[p. 15]{AAPCS} and \cite[p. 14--15]{iOSABI}.}
+	\label{tab:registers}
+\end{table}
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics{./fig/CPSR.pdf}
+	\caption{Program status register from \cite[p. 2-21]{A8Ref}.}
+	\label{fig:cpsr}
+\end{figure}
+
+
 \section{Data Types}
-doubleword, 64-bit
-• word, 32-bit
-• halfword, 16-bit
-• byte, 8-bit.
+
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{lr}
+		\toprule
+		Type			&		Size		\\
+		\midrule
+		doubleword		&		64-bit		\\
+		word			& 		32-bit		\\
+		halfword 		& 		16-bit		\\
+		byte 			& 		8-bit		\\
+		\bottomrule
+	\end{tabular}
+	\caption{Table caption}
+	\label{tab:typesizes}
+\end{table}
+
 unsigned is two's complement
 
 mixed-endian (E-bit in Program Status Register) and unaligned support but should be aligned for best performance
