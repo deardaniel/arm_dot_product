@@ -1,5 +1,5 @@
 %%!TEX encoding = UTF-8 Unicode 
-\documentclass[oneside,a4paper]{article}
+\documentclass[oneside,a4paper]{report}
 
 % Use utf-8 encoding for foreign characters
 \usepackage[utf8]{inputenc}
@@ -71,97 +71,62 @@
 
 \maketitle
 
+\chapter{Introduction}
 
-\begin{abstract}
-    The ARM architecture has existed since \emph{whenever}. In this report I will introduce the architecture under various headings and finally demonstrate an implementation of ARM assembly.
-\end{abstract}
+The ARM Cortex-A8 is the CPU in Apple's A4 SoC (System on Chip), which powers Apple's iPad and iPhone 4.
 
-\section{Introduction}
+ARMv7-A is one of three available profiles of ARMv7 \cite[p. A1-4]{ARMRef}. ARMv7-R is a real-time variant which uses a \emph{Protected Memory System Architecture} (PMSA) instead of ARMv7-A's \emph{Virtual Memory System Architecture} (VMSA). ARMv7-M is a microcontroller variant.
 
-\begin{figure}[h]
+First implementation of the ARMv7 instruction-set architecture, including the Advanced SIMD media instructions (NEONTM)
+
+\begin{figure}[htbp]
 	\centering
 	\includegraphics{./fig/CortexA8.pdf}
 	\caption{Overview of the Cortex-A8 architecture from \cite[p. 1-4]{A8Ref}.}
 	\label{fig:cortexa8}
 \end{figure}
 
-\section{Main Features}
-A1
+\chapter{Main Features}
 
-\section{Registers}
+ARM is a RISC-based architecture, and the Cortex series is a recent line of ARM processors. The Cortex follows the ARM11 series, and the Cortex-A8 is an ARMv7-A architecture processor that supports ARM, Thumb-2/Thumb, NEON and VFPv3 instruction sets.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics{./fig/Pipeline.pdf}
+	\caption{Cortex-A8 full pipeline from \cite[p. 3]{Williamson}.}
+	\label{fig:pipeline}
+\end{figure}
+
+In-order, dual-issue, superscalar microprocessor core
+Integer pipeline is 13-stage
+NEON is 10-stage
+Load-store
+
+\chapter{Registers}
+
+ARM Cortex-A8 contains 16 user registers are 32 bits long. However, load and store operations are not limited to word-sized data, and these operations can be performed with bytes, half-words, words and double-words. There are also load and store operations that support two or more words of data, so it is possible to fill all registers with a single load.
+
+The processor has 40 registers \cite[p. 2-18]{A8Ref}. This includes 33 general-purpose registers and 7 status registers (SPSRs). In user-mode 16 data registers and 2 status registers are accessible, and these are described in table~\ref{tbl:registers}. Though 16 registers are available, many of these are reserved. r13, r14 and r15 are used for the stack pointer, link register and program counter, respectively. On iOS r7 is also reserved for use as the frame pointer.
+
+The NEON unit also has its own registers for use in VFP and NEON operations. There are 8 128-bit (quad-word) registers available. These can also be addressed as 16 double-word registers or 32 single-word registers. This is illustrated in table~\ref{tbl:registers}.
+
 A2
 
 Register Format
-Word Length
 Access Methods
 
 Virtual memory and cache?
 
 
-\begin{table}[htbp]
+\begin{table}[p]
 	\centering
-	\begin{tabular}{lllllll}
-		\toprule
-		Type						&	\multicolumn{3}{l}{Name}	&	Preserved	&	Notes						\\
-		\midrule
-	 	General-purpose register	&	\multicolumn{3}{l}{R0}		&	No			&	Argument/result/scratch 1   \\
-							 		&	\multicolumn{3}{l}{R1}		&	No			&	Argument/result/scratch 2   \\
-							 		&	\multicolumn{3}{l}{R2}		&	No			&	Argument/scratch 3			\\
-							 		&	\multicolumn{3}{l}{R3}		&	No			&	Argument/scratch 4			\\
-							 		&	\multicolumn{3}{l}{R4}		&	Yes			&	Variable register 1			\\
-							 		&	\multicolumn{3}{l}{R5}		&	Yes			&	Variable register 2			\\
-							 		&	\multicolumn{3}{l}{R6}		&	Yes			&	Variable register 3			\\
-							 		&	\multicolumn{3}{l}{R7}		&	Yes			&	Variable register 4 / Frame pointer on iOS	\\
-							 		&	\multicolumn{3}{l}{R8}		&	Yes			&	Variable register 5			\\
-							 		&	\multicolumn{3}{l}{R9}		&	Special		&	Platform register			\\
-							 		&	\multicolumn{3}{l}{R10}		&	Yes			&	Variable register 7			\\
-							 		&	\multicolumn{3}{l}{R11}		&	Yes			&	Variable register 8			\\
-							 		&	\multicolumn{3}{l}{R12}		&	No			&	The Intra-Procedure-call scratch register (IP)	\\
-							 		&	\multicolumn{3}{l}{R13}		&	Special		&	Stack pointer (SP)	 		\\
-							 		&	\multicolumn{3}{l}{R14}		&	Special		&	Link register (LR)	 		\\
-							 		&	\multicolumn{3}{l}{R15}		&	Special		&	Program counter (PC) 		\\
-		Program status register		&	\multicolumn{3}{l}{CPSR}	&	Special		&						 		\\
-		VFP / Advanced SIMD register&	Q0	&	D0	&	S0			&	No			&	  		\\
-									&		&		&	S1			&	No			&	  		\\
-									&		&	D1	&	S2			&	No			&	  		\\
-									&		&		&	S3			&	No			&	  		\\
-									&	Q1	&	D2	&	S4			&	No			&	  		\\
-									&		&		&	S5			&	No			&	  		\\
-									&		&	D3	&	S6			&	No			&	  		\\
-									&		&		&	S7			&	No			&	  		\\
-									&	Q2	&	D4	&	S8			&	No			&	  		\\
-									&		&		&	S9			&	No			&	  		\\
-									&		&	D5	&	S10			&	No			&	  		\\
-									&		&		&	S11			&	No			&	  		\\
-									&	Q3	&	D6	&	S12			&	No			&	  		\\
-									&		&		&	S13			&	No			&	  		\\
-									&		&	D7	&	S14			&	No			&	  		\\
-									&		&		&	S15			&	No			&	  		\\
-									&	Q4	&	D8	&	S16			&	Yes			&	  		\\
-									&		&		&	S17			&	Yes			&	  		\\
-									&		&	D9	&	S18			&	Yes			&	  		\\
-									&		&		&	S19			&	Yes			&	  		\\
-									&	Q5	&	D10	&	S20			&	Yes			&	  		\\
-									&		&		&	S21			&	Yes			&	  		\\
-									&		&	D11	&	S22			&	Yes			&	  		\\
-									&		&		&	S23			&	Yes			&	  		\\
-									&	Q6	&	D12	&	S24			&	Yes			&	  		\\
-									&		&		&	S25			&	Yes			&	  		\\
-									&		&	D13	&	S26			&	Yes			&	  		\\
-									&		&		&	S27			&	Yes			&	  		\\
-									&	Q7	&	D14	&	S28			&	Yes			&	  		\\
-									&		&		&	S29			&	Yes			&	  		\\
-									&		&	D15	&	S30			&	Yes			&	  		\\
-									&		&		&	S31			&	Yes			&	  		\\
-		VFP status register			&	\multicolumn{3}{l}{FPSCR}	&	Special		&						 		\\
-		\bottomrule
-	\end{tabular}
+	\include{tbl_registers}
 	\caption{User-mode registers. Compiled from \cite[p. 15]{AAPCS} and \cite[p. 14--15]{iOSABI}.}
-	\label{tab:registers}
+	\label{tbl:registers}
 \end{table}
 
 
-\begin{figure}[h]
+\begin{figure}[htb]
 	\centering
 	\includegraphics{./fig/CPSR.pdf}
 	\caption{Program status register from \cite[p. 2-21]{A8Ref}.}
@@ -169,9 +134,11 @@ Virtual memory and cache?
 \end{figure}
 
 
-\section{Data Types}
+\chapter{Data Types}
 
-\begin{table}[htbp]
+There are four data types available for arithmetic operations in ARM mode. These are listed in table~\ref{tbl:datatypes}.
+
+\begin{table}[htb]
 	\centering
 	\begin{tabular}{lr}
 		\toprule
@@ -183,8 +150,8 @@ Virtual memory and cache?
 		byte 			& 		8-bit		\\
 		\bottomrule
 	\end{tabular}
-	\caption{Table caption}
-	\label{tab:typesizes}
+	\caption{ARM data types.}
+	\label{tbl:datatypes}
 \end{table}
 
 unsigned is two's complement
@@ -196,7 +163,7 @@ mixed-endian (E-bit in Program Status Register) and unaligned support but should
 A2
 A3
 2-14
-\section{Instruction Format}
+\chapter{Instruction Format}
 instruction order
 ARM
 Thumb
@@ -208,25 +175,24 @@ APSR
 A4
 A5.1
 Condition execution A8-8
-\section{Unusual Instructions}
+\chapter{Unusual Instructions}
 Perhaps in A4.4.6, A4.4.7, A4.8
 bit fields?
-\section{Memory Management}
+\chapter{Memory Management}
 A3
 B2
 
 6-2
-\section{ARM Assembly Programming Example}
-iOS ABI Function Call Guide\cite{iOSABI}
+\chapter{ARM Assembly Programming Example}
+iOS ABI Function Call Guide \cite{iOSABI}
 
-\renewcommand*{\refname}{\section{References}}
 \bibliographystyle{plain}
 \bibliography{ARM_Report}
 
 \clearpage
 
 \appendix
-\section{ARM Assembly Programming Example -- Inner Product of Two Vectors}
+\chapter{ARM Assembly Programming Example -- Inner Product of Two Vectors}
   
 \lstinputlisting[language={[ARM]Assembler}]{../ARM/dot_product.s}
 
