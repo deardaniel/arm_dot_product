@@ -73,42 +73,53 @@
 
 \chapter{Introduction}
 
-The ARM Cortex-A8 is the CPU in Apple's A4 SoC (System on Chip), which powers Apple's iPad and iPhone 4.
+It is very popular recently, and its popularity is marked by its use by Apple as the CPU in the Apple A4 SoC (System on Chip), which powers Apple's iPad and iPhone 4. It is also notable for being the first implementation of the ARMv7 instruction set architecture which includes NEON \cite{Gris}, the \emph{single instruction, multiple data} (SIMD) unit which implements floating point (VFPv3) and SIMD \emph{Advanced SIMD} instruction sets, and for operating at speeds of up to 1GHz in very low-power environments (sub-1W, and often around 300mW) \cite{Williamson}.
 
-ARMv7-A is one of three available profiles of ARMv7 \cite[p. A1-4]{ARMRef}. ARMv7-R is a real-time variant which uses a \emph{Protected Memory System Architecture} (PMSA) instead of ARMv7-A's \emph{Virtual Memory System Architecture} (VMSA). ARMv7-M is a microcontroller variant.
-
-First implementation of the ARMv7 instruction-set architecture, including the Advanced SIMD media instructions (NEONTM)
+There are three Cortex series: Cortex-A, Cortex-R and Cortex-M. They are so named because of each series' ARMv7 instruction set profile. ARMv7-A is one of three available profiles of ARMv7 \cite[p. A1-4]{ARMRef}, and is used in the Cortex-A series. Cortex-R uses ARMv7-R, which is a real-time variant which uses a \emph{Protected Memory System Architecture} (PMSA) instead of ARMv7-A's \emph{Virtual Memory System Architecture} (VMSA). The Cortex-M series processors use the ARMv7-M profile, which is a microcontroller variant of ARMv7.
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics{./fig/CortexA8.pdf}
+	\includegraphics[width=1.0\textwidth]{./fig/CortexA8.pdf}
 	\caption{Overview of the Cortex-A8 architecture from \cite[p. 1-4]{A8Ref}.}
 	\label{fig:cortexa8}
 \end{figure}
 
 \chapter{Main Features}
 
-ARM is a RISC-based architecture, and the Cortex series is a recent line of ARM processors. The Cortex follows the ARM11 series, and the Cortex-A8 is an ARMv7-A architecture processor that supports ARM, Thumb-2/Thumb, NEON and VFPv3 instruction sets.
+ARM is a reduced instruction set computer (RISC) architecture. It is a load/store architecture, meaning that its operations are performed on register contents, which are loaded from memory, and then stored back to memory; it does not perform operations directly on memory contents. It performs integer operations in a 13-stage pipeline, and floating point operations in a 10-stage NEON pipeline. The full pipeline is illustrated in Figure~\ref{fig:pipeline}.
+
+The Cortex-A8 is a in-order, dual-issue, superscalar microprocessor core that supports the following instruction sets:
+\begin{description}
+	\item[ARM] is a 32-bit instruction set which includes some interesting features such as conditional execution of almost all instructions, execution of shift/rotate operations with ALU operations in the same instruction, and 2-word (64-bit) SIMD operations.
+	
+	\item[Thumb-2] is a variable-sized instruction set. Thumb is a 16-bit instruction subset of the ARM instruction set, created with the goal to increase code density. However, it reduced the number of available instructions so much that performance decreased, so Thumb-2 was created as a variable 16/32-bit instruction set aiming to provide ``Thumb code density at ARM performance'' \cite[p. 5]{Gris}.
+	
+	\item[VFPv3] (\emph{Vector Floating Point v3}) is a floating point instruction set, which is executed in the NEON unit. It supports single-word and double-word operations in its 16 double-word registers.
+	
+	\item[Advanced SIMD] is a SIMD instruction set that works together with VFPv3 in the NEON unit. It shares the VFPv3 registers, but can also address them as quad-word (128-bit) registers. Advanced SIMD operations can execute double-word or quad-word operands in parallel.
+\end{description}
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics{./fig/Pipeline.pdf}
+	\includegraphics[width=1.0\textwidth]{./fig/Pipeline.pdf}
 	\caption{Cortex-A8 full pipeline from \cite[p. 3]{Williamson}.}
 	\label{fig:pipeline}
 \end{figure}
-
-In-order, dual-issue, superscalar microprocessor core
-Integer pipeline is 13-stage
-NEON is 10-stage
-Load-store
 
 \chapter{Registers}
 
 ARM Cortex-A8 contains 16 user registers are 32 bits long. However, load and store operations are not limited to word-sized data, and these operations can be performed with bytes, half-words, words and double-words. There are also load and store operations that support two or more words of data, so it is possible to fill all registers with a single load.
 
-The processor has 40 registers \cite[p. 2-18]{A8Ref}. This includes 33 general-purpose registers and 7 status registers (SPSRs). In user-mode 16 data registers and 2 status registers are accessible, and these are described in table~\ref{tbl:registers}. Though 16 registers are available, many of these are reserved. r13, r14 and r15 are used for the stack pointer, link register and program counter, respectively. On iOS r7 is also reserved for use as the frame pointer.
+The processor has 40 registers \cite[p. 2-18]{A8Ref}. This includes 33 general-purpose registers and 7 \emph{saved program status registers} (SPSRs). The format of a SPSR on a Cortex-A8 processor is illustrated in Figure~\ref{fig:cpsr}. In user-mode 16 data registers and 2 status registers are accessible, and these are described in Table~\ref{tab:registers}. Though 16 registers are available, many of these are reserved. r13, r14 and r15 are used for the stack pointer, link register and program counter, respectively. On iOS r7 is also reserved for use as the frame pointer.
 
-The NEON unit also has its own registers for use in VFP and NEON operations. There are 8 128-bit (quad-word) registers available. These can also be addressed as 16 double-word registers or 32 single-word registers. This is illustrated in table~\ref{tbl:registers}.
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=1.0\textwidth]{./fig/CPSR.pdf}
+	\caption{Program status register from \cite[p. 2-21]{A8Ref}.}
+	\label{fig:cpsr}
+\end{figure}
+
+The NEON unit also has its own registers for use in VFP and NEON operations. There are 8 128-bit (quad-word) registers available. These can also be addressed as 16 double-word registers or 32 single-word registers. This is illustrated in Table~\ref{tab:registers}.
 
 A2
 
@@ -120,23 +131,14 @@ Virtual memory and cache?
 
 \begin{table}[p]
 	\centering
-	\include{tbl_registers}
+	\include{tab_registers}
 	\caption{User-mode registers. Compiled from \cite[p. 15]{AAPCS} and \cite[p. 14--15]{iOSABI}.}
-	\label{tbl:registers}
+	\label{tab:registers}
 \end{table}
-
-
-\begin{figure}[htb]
-	\centering
-	\includegraphics{./fig/CPSR.pdf}
-	\caption{Program status register from \cite[p. 2-21]{A8Ref}.}
-	\label{fig:cpsr}
-\end{figure}
-
 
 \chapter{Data Types}
 
-There are four data types available for arithmetic operations in ARM mode. These are listed in table~\ref{tbl:datatypes}.
+There are four data types available for arithmetic operations in ARM mode \cite[p. 2-14]{A8Ref}. These are listed in Table~\ref{tab:datatypes}.
 
 \begin{table}[htb]
 	\centering
@@ -151,23 +153,39 @@ There are four data types available for arithmetic operations in ARM mode. These
 		\bottomrule
 	\end{tabular}
 	\caption{ARM data types.}
-	\label{tbl:datatypes}
+	\label{tab:datatypes}
 \end{table}
 
-unsigned is two's complement
+Data can be signed (two's complement) or unsigned, and can be little- or big-endian ordered \cite[p. 4-2]{A8Ref}. The data order is indicated in the E-bit in the Application Program Status Register (APSR). This can been seen in Figure~\ref{fig:cpsr} as \emph{E: Data endianness bit}.
 
-mixed-endian (E-bit in Program Status Register) and unaligned support but should be aligned for best performance
-2.14
-
+Data access does not have to be aligned but for best performance data access should be word-aligned.
 
 A2
 A3
-2-14
+
 \chapter{Instruction Format}
-instruction order
-ARM
+
+ARM instructions are 32-bit, little-endian format. There are many different types of instruction, and each of these has a different format. 
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=1.0\textwidth]{./fig/InstructionFormat.pdf}
+	\caption{ARM instruction set format from \cite[p. 13]{ARMInst}.}
+	\label{fig:instructionformat}
+\end{figure}
+
 Thumb
-ThumbEE
+
+ARM provides the \emph{Unified Assembler Language} (UAL) as a canonical language for all ARM and Thumb commands. Assembly written in UAL can be assembled to ARM alone, or to ARM with Thumb, depending on the target processor.
+
+An interesting feature of ARM instructions is their conditional bits, which can be seen in Figure~\ref{fig:instructionformat} as bits 31--28. In UAL, ARM instructions that end in \texttt{S} (for example \texttt{ADDS} vs. \texttt{ADD}, and \texttt{SUBS} vs. \texttt{SUB}) set the condition flags in the APSR (bits 31--28). The value of these four bits together with the state of the condition flags in the APSR determine whether or not the instruction is executed. The different condition codes are listed in Figure~\ref{fig:conditioncodes}. Even if not executed the instruction still uses one cycle.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=1.0\textwidth]{./fig/ConditionCodes.pdf}
+	\caption{Condition codes from \cite[p. A8-8]{ARMRef}.}
+	\label{fig:conditioncodes}
+\end{figure}
 
 conditional instructions
 APSR
