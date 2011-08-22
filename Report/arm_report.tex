@@ -1,17 +1,18 @@
 %%!TEX encoding = UTF-8 Unicode 
 \documentclass[oneside,a4paper]{report}
 
-% Use utf-8 encoding for foreign characters
 \usepackage[utf8]{inputenc}
 
-% Setup for fullpage use
 \usepackage{fullpage}
 \usepackage[usenames,dvipsnames]{color}
-%\usepackage{subfigure}
-% \usepackage{boxedminipage}
 \usepackage{listings}
 \usepackage{booktabs}
 \usepackage{setspace}
+\usepackage[pdftex]{graphicx}
+\usepackage[colorlinks=true,citecolor=OrangeRed,urlcolor=NavyBlue,linkcolor=OliveGreen]{hyperref}
+\usepackage[all]{hypcap}
+
+\DeclareGraphicsExtensions{.pdf, .jpg, .tif}
 
 \linespread{1.6}
 
@@ -55,42 +56,21 @@
   showstringspaces=false
 }
 
-% This is now the recommended way for checking for PDFLaTeX:
-\usepackage{ifpdf}
-
-%\newif\ifpdf
-%\ifx\pdfoutput\undefined
-%\pdffalse % we are not running PDFLaTeX
-%\else
-%\pdfoutput=1 % we are running PDFLaTeX
-%\pdftrue
-%\fi
-
-\ifpdf
-\usepackage[pdftex]{graphicx}
-\else
-\usepackage{graphicx}
-\fi
-
-\usepackage[colorlinks=true,citecolor=OrangeRed,urlcolor=NavyBlue,linkcolor=ForestGreen]{hyperref}
-\usepackage[all]{hypcap}
 
 \title{ \textbf{ARM Cortex-A8} \\ \large{4810-1164 Modern Computer Architectures and System Software}}
 \author{ \textbf{Daniel Heffernan} \\ Creative Informatics (M1) -- 48-116625 }
 
 \begin{document}
-
-\ifpdf
-\DeclareGraphicsExtensions{.pdf, .jpg, .tif}
-\else
-\DeclareGraphicsExtensions{.eps, .jpg}
-\fi
-
+\pagenumbering{alph}
 \maketitle
 
+\clearpage\pagenumbering{roman}
+\tableofcontents
+
+\clearpage\pagenumbering{arabic}
 \chapter{Introduction}
 
-It is very popular recently, and its popularity is marked by its use by Apple as the CPU in the Apple A4 SoC (System on Chip), which powers Apple's iPad and iPhone 4. It is also notable for being the first implementation of the ARMv7 instruction set architecture which includes NEON \cite{Gris}, the \emph{single instruction, multiple data} (SIMD) unit which implements floating point (VFPv3) and SIMD (Advanced SIMD) instruction sets, and for operating at speeds of up to 1GHz in very low-power environments (sub-1W, and often around 300mW) \cite{Williamson}.
+The Cortex-A8's popularity has recently been marked by its use by Apple as the CPU in the Apple A4 SoC (System on Chip), which powers Apple's iPad and iPhone 4. It is also notable for being the first implementation of the ARMv7 instruction set architecture which includes NEON \cite{Gris}, the \emph{single instruction, multiple data} (SIMD) unit which implements floating point (VFPv3) and SIMD (Advanced SIMD) instruction sets, and for operating at speeds of up to 1GHz in very low-power environments (sub-1W, and often around 300mW) \cite{Williamson}.
 
 There are three Cortex series: Cortex-A, Cortex-R and Cortex-M. They are so named because of each series' ARMv7 instruction set profile. ARMv7-A is one of three available profiles of ARMv7 \cite[p. A1-4]{ARMRef}, and is used in the Cortex-A series. Cortex-R uses ARMv7-R, which is a real-time variant which uses a \emph{Protected Memory System Architecture} (PMSA) instead of ARMv7-A's \emph{Virtual Memory System Architecture} (VMSA). The Cortex-M series processors use the ARMv7-M profile, which is a microcontroller variant of ARMv7.
 
@@ -105,6 +85,15 @@ There are three Cortex series: Cortex-A, Cortex-R and Cortex-M. They are so name
 
 ARM is a \emph{reduced instruction set computer} (RISC) architecture. It is a load/store architecture, meaning that its operations are performed on register contents, which are loaded from memory, and then stored back to memory; it does not perform operations directly on memory contents. It performs integer operations in a 13-stage pipeline, and floating point operations in a 10-stage NEON pipeline. The full pipeline is illustrated in Figure~\ref{fig:pipeline}.
 
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=1.0\textwidth]{./fig/Pipeline.pdf}
+	\caption{Cortex-A8 full pipeline from \cite[p. 3]{Williamson}.}
+	\label{fig:pipeline}
+\end{figure}
+
+\section{Instruction Sets}
+
 The Cortex-A8 is a in-order, dual-issue, superscalar microprocessor core that supports the following instruction sets:
 \begin{description}
 	\item[ARM] is a 32-bit instruction set which includes some interesting features such as conditional execution of almost all instructions, execution of shift/rotate operations with ALU operations in the same instruction, and 2-word (64-bit) SIMD operations.
@@ -116,15 +105,9 @@ The Cortex-A8 is a in-order, dual-issue, superscalar microprocessor core that su
 	\item[Advanced SIMD] is a SIMD instruction set that works together with VFPv3 in the NEON unit. It shares the VFPv3 registers, but can also address them as quad-word (128-bit) registers. Advanced SIMD operations can execute double-word or quad-word operands in parallel.
 \end{description}
 
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[width=1.0\textwidth]{./fig/Pipeline.pdf}
-	\caption{Cortex-A8 full pipeline from \cite[p. 3]{Williamson}.}
-	\label{fig:pipeline}
-\end{figure}
-
 \chapter{Registers}
 
+\section{General-Purpose and Program Status Registers}
 ARM Cortex-A8 contains 16 user registers are 32 bits long. However, load and store operations are not limited to word-sized data, and these operations can be performed with bytes, half-words, words and double-words. There are also load and store operations that support two or more words of data, so it is possible to fill all registers with a single load.
 
 The processor has 40 registers \cite[p. 2-18]{A8Ref}. This includes 33 general-purpose registers and 7 \emph{saved program status registers} (SPSRs). The format of a SPSR on a Cortex-A8 processor is illustrated in Figure~\ref{fig:cpsr}. In user-mode 16 data registers and 2 status registers are accessible, and these are described in Table~\ref{tab:registers}. Though 16 registers are available, many of these are reserved. r13, r14 and r15 are used for the stack pointer, link register and program counter, respectively. On iOS r7 is also reserved for use as the frame pointer.
@@ -136,9 +119,14 @@ The processor has 40 registers \cite[p. 2-18]{A8Ref}. This includes 33 general-p
 	\label{fig:cpsr}
 \end{figure}
 
-The NEON unit also has its own registers for use in VFP and NEON operations. There are 8 128-bit (quad-word) registers available. These can also be addressed as 16 double-word registers or 32 single-word registers. This is illustrated in Table~\ref{tab:registers}.
+\section{NEON Registers}
+The NEON unit also has its own registers for use in VFP and NEON operations. There are 8 128-bit (quad-word) registers available. These can also be addressed as 16 individual 32 single-word registers or 32 individual 16 double-word registers.
 
-\begin{table}[p]
+Data access is very simple, can be easily moved in and out of the NEON coprocessor with \texttt{VMOV} instruction. Data can also be loaded from/stored to external memory with \texttt{VLD\*} and \texttt{VST\*} instructions. The amount of data transferred is determined by the size of the operand registers.
+
+This is illustrated in Table~\ref{tab:registers}.
+
+\begin{table}[htbp]
 	\centering
 	\singlespacing
 	\include{tab_registers}
@@ -186,7 +174,9 @@ Thumb instructions are 16 bits long, and Thumb-2 instructions are variable lengt
 \section{Unified Assembler Language}
 ARM provides the \emph{Unified Assembler Language} (UAL) as a canonical language for all ARM and Thumb commands. Assembly written in UAL can be assembled to ARM alone, or to ARM with Thumb, depending on the target processor.
 
-\section{Condition Codes}
+Instructions available in UAL are listed in \cite{ARMRef} and the code in Appendix~\ref{appendix:a} is an example of UAL.
+
+\section{Condition Codes}\label{sec:conditioncodes}
 An interesting feature of ARM instructions is their conditional bits, which can be seen in Figure~\ref{fig:instructionformat} as bits 31--28. In UAL, ARM instructions that end in \texttt{S} (for example \texttt{ADDS} vs. \texttt{ADD}, and \texttt{SUBS} vs. \texttt{SUB}) set the condition flags in the APSR (bits 31--28). The value of these four bits together with the state of the condition flags in the APSR determine whether or not the instruction is executed. The different condition codes are listed in Figure~\ref{fig:conditioncodes}. Even if not executed the instruction still uses one cycle.
 
 \begin{figure}[htb]
@@ -196,7 +186,7 @@ An interesting feature of ARM instructions is their conditional bits, which can 
 	\label{fig:conditioncodes}
 \end{figure}
 
-\section{Barrel Shifter}
+\section{Barrel Shifter}\label{sec:barrelshifter}
 ARM provides shift and rotate operations, but these can be performed as part of other data processing instructions.
 
 There are four basic instructions, shown in Table~\ref{tab:shifts}. The parameter $n$ can either be an immediate constant (a constant prefixed by \texttt{\#}), or can be a register. In the case of a register, the bottom byte is used to determine the parameter and an extra cycle is required \cite[p. 31]{ARMInst}.
@@ -236,16 +226,17 @@ However, using the barrel shifter we can reduce this to one instruction, which i
 add r0, r1, r2, LSL #3   // r0 = r1 + (r2 << 3)
 \end{lstlisting}
 
-A4
-A5.1
-
 \chapter{Unusual Instructions}
-Perhaps in A4.4.6, A4.4.7, A4.8
-bit fields?
+
+Due to ARM's RISC nature there is not an abundance of instructions available when compared to some CISC instruction sets, so there are not many unusual instructions to discuss. However, the format of the instructions is in itself unique, especially the conditional instructions and barrel shifter operations discussed in Section~\ref{sec:conditioncodes} and Section~\ref{sec:barrelshifter} respectively.
+
+Instructions that may somewhat unusual are the multiple load/store instructions discussed in Section~\ref{sec:memoryprogrammersmodel}. These instructions allow multiple words to be loaded sequentially from memory and saved in contiguous registers, and vice versa.
+ 
+One interesting instruction is the \texttt{BKPT} instruction. This is the \emph{breakpoint} instruction and is part of the CoreSight debug architecture, which provides instruction trace, data trace, sample-based profiling and performance monitors \cite[p. C1-5]{ARMRef}. This is mentioned here as CoreSight itself is a unique as a powerful debug architecture.
 
 \chapter{Memory Management}
 
-\section{Programmer's Model}
+\section{Programmer's Model}\label{sec:memoryprogrammersmodel}
 
 As ARM is a \emph{Load/Store Architecture}, it does not perform operations directly on memory. Before any operation is performed, the memory must first be \emph{loaded} into registers, and when the operation is completed, the result must be \emph{stored} back into memory. 
 
@@ -285,7 +276,7 @@ bne loop                // and loop until done
 	\label{fig:autoincrement}
 \end{figure}
 
-\section{Implemention}
+\section{Hardware Implemention}
 
 The Cortex-A8 uses a multilevel memory hierarchy, with L1 and L2 cache available for high-speed access and external L3 memory (DRAM, SRAM, Flash, ROM, etc) available over the AXI interface (seen in Figure~\ref{fig:cortexa8}). The arrangement of these various levels of cache is shown in Figure~\ref{fig:memoryhierarchy}.
 
@@ -306,14 +297,17 @@ The Cortex-A8's L1 memory system is a Harvard architecture: it contains separate
 
 The instruction cache is indexed virtually with the IVIPT extension (\emph{Instruction cache Virtually Indexed Physically Tagged extension}), which is designed to simplify instruction cache maintenance by only requiring a single condition: updating data at an instruction address \cite[p. 7-4]{A8Ref}. Data cache is indexed physically (\emph{Physically Indexed, Physically Tagged}, PIPT), but this is much slower than the VIPT instruction cache because the physical address must be looked up, and in doing so if a \emph{translation lookaside buffer} (TLB) miss is encountered external memory must be accessed \cite[p. 7-8]{A8Ref}.
 
+\subsection{L2 Cache}
+
 A3
 B2
 
 6-2
+
 \chapter{ARM Assembly Example}
 An example of ARM assembly programming can be seen in Appendix~\ref{appendix:a} (p. \pageref{appendix:a}).
 
-This code calculates the inner product of two $n$-length vectors. Functions are provided for 32-bit signed integer vectors and floating point vectors.
+This code calculates the inner product of two $n$-length vectors. Functions are provided for 32-bit signed integer vectors and floating point vectors, which are described in detail and benchmarked below.
 
 \section{Interface}
 
@@ -357,36 +351,38 @@ float dot_product_float_accelerate(float *x,float *y, int32_t n) {
 \end{singlespacing}
 
 \section{Implementation}
-iOS ABI Function Call Guide \cite{iOSABI}
+The code was implemented on iOS using the iOS SDK. It was tested and benchmarked on an iPhone 4. During development the \emph{iOS ABI Function Call Guide} \cite{iOSABI} was consulted frequently. For example, the guide defines which registers must be preserved by subroutines, and therefore which registers must be pushed to the stack so that they can be returned to their state when the subroutine returns is not changed. Registers' preserved status is listed in Table~\ref{tab:registers} on page~\pageref{tab:registers}.
 
 \section{Benchmarking}
 
 To test the performance of the ARM assembly implementation random vectors were generated of varying lengths and their dot products were calculated in all implementations (C Signed 32-bit Integer, ARM Signed 32-bit Integer, C Float, ARM Float, vDSP Float). The vector lengths used were 10, 100, 500, 1,000, 2,000, 4,000, 8,000, 16,000, 32,000, 64,000, 128,000, 256,000 and 512,000.
 
-The results can be seen in detail in Table~\ref{tab:results} and are charted in Figure~\ref{fig:results}. There are a few interesting things to note in these results:
-\begin{enumeration}
-	\item The C implementations are a whole magnitude of order slower than the other implementations.
-	\item The asm implementations are accelerated by NEON, but the vDSP implementation is still faster. The asm implementations' use of NEON is restricted to 8 elements at a time, but by using more NEON registers it is possible to decrease the amount of branching, and therefore keep the pipeline full for longer.
-\end{enumeration}
+The original measurement method was to use the CCNT (\emph{Cycle Count Register}), but access is restricted to privileged mode, and therefore unavailable from iOS applications. Instead, \texttt{mach\_absolute\_time()} was used.
+
+The results can be seen in detail in Table~\ref{tab:results} and are charted in Figure~\ref{fig:results}. There are a few interesting points to note in these results:
+\begin{enumerate}
+	\item The C implementations (circle series) are a whole magnitude of order slower than the NEON-accelerated implementations (i.e., vDSP and ARM+NEON).
+	\item The non-SIMD ARM implementation (diamond series) is faster than the C implementations, but not as fast as NEON-accelerated implementations. There is no non-NEON floating point implementation because all floating point arithmetic must be performed by the NEON coprocessor.
+	\item The ARM+NEON implementations (square series) use SIMD operations, but the vDSP implementation (triangle series) is still faster. The ARM+NEON implementations' use of NEON only loads and processes 8 elements at a time, but by using more NEON registers it is possible to decrease the amount of branching, and therefore keep the pipeline full for longer. This may explain the higher performance of the vDSP library.
+	\item The vDSP library does not seem to perform well with short vectors.
+\end{enumerate}
 
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=1.0\textwidth]{./fig/ResultsChart.pdf}
-	\caption{\ldots}
+	\caption{Chart of benchmarking results over 10 iterations of inner product calculations of random vectors.}
 	\label{fig:results}
 \end{figure}
 
-\begin{table}[htb]
+\begin{table}[p]
 	\centering
 	\includegraphics[width=1.0\textwidth]{./fig/ResultsTable.pdf}
-	\caption{\ldots}
+	\caption{Benchmarking results over 10 iterations of inner product calculations of random vectors.}
 	\label{tab:results}
 \end{table}
 
 \bibliographystyle{plain}
 \bibliography{ARM_Report}
-
-\clearpage
 
 \appendix
 \chapter{ARM Assembly Programming Example -- Inner Product of Two Vectors}\label{appendix:a}
