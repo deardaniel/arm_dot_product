@@ -7,14 +7,14 @@
 \usepackage[usenames,dvipsnames]{color}
 \usepackage{listings}
 \usepackage{booktabs}
-\usepackage{setspace}
+% \usepackage{setspace}
 \usepackage[pdftex]{graphicx}
 \usepackage[colorlinks=true,citecolor=OrangeRed,urlcolor=NavyBlue,linkcolor=OliveGreen]{hyperref}
 \usepackage[all]{hypcap}
 
 \DeclareGraphicsExtensions{.pdf, .jpg, .tif}
 
-\linespread{1.6}
+% \linespread{1.6}
 
 \lstdefinelanguage[ARM]{Assembler}%
   {morekeywords=[1]{.text,.globl,.align},%
@@ -67,10 +67,13 @@
 \clearpage\pagenumbering{roman}
 \tableofcontents
 
+
 \clearpage\pagenumbering{arabic}
 \chapter{Introduction}
 
-The Cortex-A8's popularity has recently been marked by its use by Apple as the CPU in the Apple A4 SoC (System on Chip), which powers Apple's iPad and iPhone 4. It is also notable for being the first implementation of the ARMv7 instruction set architecture which includes NEON \cite{Gris}, the \emph{single instruction, multiple data} (SIMD) unit which implements floating point (VFPv3) and SIMD (Advanced SIMD) instruction sets, and for operating at speeds of up to 1GHz in very low-power environments (sub-1W, and often around 300mW) \cite{Williamson}.
+The Cortex-A8 is a recent processor in ARM's Cortex series, which follows ARM's ARM11 series of processors. The time of writing (2011), the Cortex-A9 is the most recently released processor in the series, which is to be followed by the Cortex-A15 in 2012.
+
+As computing has become more and more mobile in recent years, the popularity of ARM cores has increased dramatically, largely due to their low power requirements. The Cortex-A8's popularity is marked by its use by Apple as the CPU in the Apple A4 SoC (System on Chip), which powers Apple's iPad and iPhone 4. It is also notable for being the first implementation of the ARMv7 instruction set architecture which includes NEON \cite{Gris}, the \emph{single instruction, multiple data} (SIMD) unit which implements floating point (VFPv3) and SIMD (Advanced SIMD) instruction sets, and for operating at speeds of up to 1GHz in very low-power environments (sub-1W, and often around 300mW) \cite{Williamson}.
 
 There are three Cortex series: Cortex-A, Cortex-R and Cortex-M. They are so named because of each series' ARMv7 instruction set profile. ARMv7-A is one of three available profiles of ARMv7 \cite[p. A1-4]{ARMRef}, and is used in the Cortex-A series. Cortex-R uses ARMv7-R, which is a real-time variant which uses a \emph{Protected Memory System Architecture} (PMSA) instead of ARMv7-A's \emph{Virtual Memory System Architecture} (VMSA). The Cortex-M series processors use the ARMv7-M profile, which is a microcontroller variant of ARMv7.
 
@@ -83,7 +86,7 @@ There are three Cortex series: Cortex-A, Cortex-R and Cortex-M. They are so name
 
 \chapter{Main Features}
 
-ARM is a \emph{reduced instruction set computer} (RISC) architecture. It is a load/store architecture, meaning that its operations are performed on register contents, which are loaded from memory, and then stored back to memory; it does not perform operations directly on memory contents. It performs integer operations in a 13-stage pipeline, and floating point operations in a 10-stage NEON pipeline. The full pipeline is illustrated in Figure~\ref{fig:pipeline}.
+ARM is a \emph{reduced instruction set computer} (RISC) architecture. It is a load/store architecture, meaning that its operations are performed on register contents, which are loaded from memory, and then stored back to memory; it does not perform operations directly on memory contents, unlike CISC architectures. It performs integer operations in a 13-stage pipeline, and floating point operations in a 10-stage NEON pipeline. The full pipeline is illustrated in Figure~\ref{fig:pipeline}.
 
 \begin{figure}[htb]
 	\centering
@@ -98,19 +101,23 @@ The Cortex-A8 is a in-order, dual-issue, superscalar microprocessor core that su
 \begin{description}
 	\item[ARM] is a 32-bit instruction set which includes some interesting features such as conditional execution of almost all instructions, execution of shift/rotate operations with ALU operations in the same instruction, and 2-word (64-bit) SIMD operations.
 	
-	\item[Thumb-2] is a variable-sized instruction set. Thumb is a 16-bit instruction subset of the ARM instruction set, created with the goal to increase code density. However, it reduced the number of available instructions so much that performance decreased, so Thumb-2 was created as a variable 16/32-bit instruction set aiming to provide ``Thumb code density at ARM performance'' \cite[p. 5]{Gris}.
+	\item[Thumb-2] is a variable-sized instruction set. Thumb is a 16-bit instruction subset of the ARM instruction set, created with the goal to increase code density. However, it reduces the number of available instructions so much that performance decreases, so Thumb-2 was created as a variable 16/32-bit instruction set aiming to provide ``Thumb code density at ARM performance'' \cite[p. 5]{Gris}.
 	
-	\item[VFPv3] (\emph{Vector Floating Point v3}) is a floating point instruction set, which is executed in the NEON unit. It supports single-word and double-word operations in its 16 double-word registers.
+	\item[VFPv3] (\emph{Vector Floating Point v3}) is a floating point instruction set, which is executed in the NEON unit. It supports single-word and double-word operations on its 16 double-word registers.
 	
-	\item[Advanced SIMD] is a SIMD instruction set that works together with VFPv3 in the NEON unit. It shares the VFPv3 registers, but can also address them as quad-word (128-bit) registers. Advanced SIMD operations can execute double-word or quad-word operands in parallel.
+	\item[Advanced SIMD] is a SIMD instruction set that works together with VFPv3 in the NEON unit. It shares and extends the VFPv3 registers, but can also address them as quad-word (128-bit) registers. Advanced SIMD operations can execute operations on up to four words in parallel.
 \end{description}
 
 \chapter{Registers}
 
 \section{General-Purpose and Program Status Registers}
-ARM Cortex-A8 contains 16 user registers are 32 bits long. However, load and store operations are not limited to word-sized data, and these operations can be performed with bytes, half-words, words and double-words. There are also load and store operations that support two or more words of data, so it is possible to fill all registers with a single load.
+ARM Cortex-A8 contains 40 registers in total, each 32 bits long \cite[p. 2-18]{A8Ref}. This includes 33 general-purpose registers and 7 \emph{saved program status registers} (SPSRs).
 
-The processor has 40 registers \cite[p. 2-18]{A8Ref}. This includes 33 general-purpose registers and 7 \emph{saved program status registers} (SPSRs). The format of a SPSR on a Cortex-A8 processor is illustrated in Figure~\ref{fig:cpsr}. In user-mode 16 data registers and 2 status registers are accessible, and these are described in Table~\ref{tab:registers}. Though 16 registers are available, many of these are reserved. r13, r14 and r15 are used for the stack pointer, link register and program counter, respectively. On iOS r7 is also reserved for use as the frame pointer.
+In user-mode 16 data registers and 2 PSR registers are accessible, and these are described in Table~\ref{tab:registers}. Of the 16 available registers, some of these are reserved. r13, r14 and r15 are used for the stack pointer, link register and program counter, respectively. On iOS r7 is also reserved for use as the frame pointer.
+
+Though all registers are 32 bits long, load and store operations are not limited to word-sized data. These operations can be performed with bytes, half-words, words and double-words. There are also load and store operations that support two or more words of data, so it is possible to fill all registers with a single load. See Figure~\ref{fig:autoincrement}  on page~\pageref{fig:autoincrement} for an example of this.
+
+The format of an SPSR is illustrated in Figure~\ref{fig:cpsr}. This figure will be referenced further later in this report.
 
 \begin{figure}[htb]
 	\centering
@@ -120,19 +127,59 @@ The processor has 40 registers \cite[p. 2-18]{A8Ref}. This includes 33 general-p
 \end{figure}
 
 \section{NEON Registers}
-The NEON unit also has its own registers for use in VFP and NEON operations. There are 8 128-bit (quad-word) registers available. These can also be addressed as 16 individual 32 single-word registers or 32 individual 16 double-word registers.
+The NEON unit also has its own registers for use in VFP and NEON operations. There are 8 128-bit (quad-word) registers available. These can also be addressed as 16 individual 32 single-word registers or 32 individual 16 double-word registers. This is shown in Table~\ref{tab:registers}.
 
 Data access is very simple, can be easily moved in and out of the NEON coprocessor with \texttt{VMOV} instruction. Data can also be loaded from/stored to external memory with \texttt{VLD\*} and \texttt{VST\*} instructions. The amount of data transferred is determined by the size of the operand registers.
 
-This is illustrated in Table~\ref{tab:registers}.
-
 \begin{table}[htbp]
 	\centering
-	\singlespacing
+	% \singlespacing
 	\include{tab_registers}
 	\caption{User-mode registers. Compiled from \cite[p. 15]{AAPCS} and \cite[p. 14--15]{iOSABI}.}
 	\label{tab:registers}
 \end{table}
+
+\section{Data Access}\label{sec:dataaccess}
+
+As ARM is a \emph{Load/Store Architecture}, it does not perform operations directly on memory. Before any operation is performed, the memory must first be \emph{loaded} into registers, and when the operation is completed, the result must be \emph{stored} back into memory.
+
+\begin{table}[htb]
+	\begin{tabular}{lll}
+		\toprule
+		Data length	&	Load instruction(s)								&	Store operation(s)								\\
+		\midrule
+		Multiple	&	\texttt{LDM} / \texttt{LDMIA} / \texttt{LDMFD}	&	\texttt{STM} / \texttt{STMIA} / \texttt{STMEA}	\\
+		Dual		&	\texttt{LDRD}									&	\texttt{STRD}									\\
+		Word		&	\texttt{LDR}									&	\texttt{STR}									\\
+		Half-word   &	\texttt{LDRH} / \texttt{LDHRS}					&	n/a												\\
+		Byte        &	\texttt{LDRB} / \texttt{LDRSB}					&	n/a												\\
+		\bottomrule		
+	\end{tabular}
+	\caption{Load and store instructions for various data types.}
+	\label{tab:loadstore}
+\end{table}
+
+Note that load instructions that read data types shorter than word length have signed and unsigned variants. This is necessary because the data will be extended to a word-length type when loaded. For the same reason, note that these data types have no store operations. Once loaded they are word-length types which can be stored with \texttt{STR} (store word), \texttt{STRD} (store double-word) or \texttt{STM} (store multi-word) and their variants.
+
+A list of load and store instructions for various data types is shown in Table~\ref{tab:loadstore}.
+
+\subsection{Auto-incrementing}
+The commands listed above can be used with auto-incrementing functionality. This can be seen by use of the \texttt{!} symbol in the code in Figure~\ref{fig:autoincrement} which demonstrates a simple \texttt{memcpy()} implementation.
+
+\begin{figure}[htb]
+	\centering
+	\begin{lstlisting}[language={[ARM]Assembler}]
+// r12 points to the start of the source data
+// r14 points to the end of the source data
+// r13 points to the start of the destination data loop
+ldmia r12!, {r0-r11}    // load 48 bytes, add 48 to r12
+stmia r13!, {r0-r11}    // and store them, add 48 to r13
+cmp r12, r14            // check for the end
+bne loop                // and loop until done
+	\end{lstlisting}
+	\caption{Example of auto-incrementing addressing adapted from \cite[p. 61]{ARMInst}.}
+	\label{fig:autoincrement}
+\end{figure}
 
 \chapter{Data Types}
 
@@ -156,7 +203,9 @@ There are four data types available for arithmetic operations in ARM mode \cite[
 
 Data can be signed (two's complement) or unsigned, and can be little- or big-endian ordered \cite[p. 4-2]{A8Ref}. The data order is indicated in the E-bit in the Application Program Status Register (APSR). This can been seen in Figure~\ref{fig:cpsr} as \emph{E: Data endianness bit}.
 
-Data access does not have to be aligned but for best performance data access should be word-aligned.
+Data access does not have to be aligned but for best performance it should be word-aligned. Data access is discussed in more detail in Section~\ref{sec:dataaccess} on page~\pageref{sec:dataaccess}.
+
+
 
 \chapter{Instruction Format}
 
@@ -177,7 +226,7 @@ ARM provides the \emph{Unified Assembler Language} (UAL) as a canonical language
 Instructions available in UAL are listed in \cite{ARMRef} and the code in Appendix~\ref{appendix:a} is an example of UAL.
 
 \section{Condition Codes}\label{sec:conditioncodes}
-An interesting feature of ARM instructions is their conditional bits, which can be seen in Figure~\ref{fig:instructionformat} as bits 31--28. In UAL, ARM instructions that end in \texttt{S} (for example \texttt{ADDS} vs. \texttt{ADD}, and \texttt{SUBS} vs. \texttt{SUB}) set the condition flags in the APSR (bits 31--28). The value of these four bits together with the state of the condition flags in the APSR determine whether or not the instruction is executed. The different condition codes are listed in Figure~\ref{fig:conditioncodes}. Even if not executed the instruction still uses one cycle.
+An interesting feature of ARM instructions is their conditional execution. Whether an instruction is executed or just treated as a \texttt{NOP} is determined by the condition code bits, which can be seen in Figure~\ref{fig:instructionformat} as bits 31--28. In UAL, ARM instructions that end in \texttt{S} (for example \texttt{ADDS} vs. \texttt{ADD}, and \texttt{SUBS} vs. \texttt{SUB}) set the condition flags in the APSR (bits 31--28). The state of the condition flags in the APSR, together with the value of the instruction's four condition bits, determines whether or not the instruction is executed. The different condition codes are listed in Figure~\ref{fig:conditioncodes}. Even if not executed the instruction still uses one cycle.
 
 \begin{figure}[htb]
 	\centering
@@ -197,30 +246,30 @@ There are four basic instructions, shown in Table~\ref{tab:shifts}. The paramete
 		\toprule
 		Operation		&	Description				&	$n$ Range		\\
 		\midrule
-		\texttt{LSL}	$n$			&	Logical shift left		&	$1 <= n <= 31$	\\
-		\texttt{LSR}	$n$			&	Logical shift right		&	$1 <= n <= 32$	\\
-		\texttt{ASR}	$n$			&	Arithmetic shift right	&	$1 <= n <= 32$	\\
-		\texttt{ROR}	$n$			&	Rotate right			&	$1 <= n <= 31$	\\
+		\texttt{LSL}	$n$			&	Logical shift left		&	$1 \le n \le 31$	\\
+		\texttt{LSR}	$n$			&	Logical shift right		&	$1 \le n \le 32$	\\
+		\texttt{ASR}	$n$			&	Arithmetic shift right	&	$1 \le n \le 32$	\\
+		\texttt{ROR}	$n$			&	Rotate right			&	$1 \le n \le 31$	\\
 		\bottomrule
 	\end{tabular}
 	\caption{Barrel shifter operations. \cite[p. A8-10]{ARMRef}}
 	\label{tab:shifts}
 \end{table}
 
-The barrel shifter increases code density. To demonstrate this, let us see an example of a simple arithmetic operation:
+The barrel shifter increases code density. To demonstrate this, let us look at an example of a short program to perform a simple arithmetic operation:
 
-$r_0 = r_1 + 8\cdot{}r_2$
+$r_0 = r_1 + 8r_2$
 
-Without using the barrel shifter, this could be implemented with two instructions (and two cycles) as so:
+Without using the barrel shifter, this could be implemented with two instructions (and two cycles):
 
-\begin{singlespacing}
+% \begin{singlespacing}
 \begin{lstlisting}[language={[ARM]Assembler}]
 mul r0, r2, #8           // r0 = r2 * 8
-add r0, r1               // r0 = r0 + r1
+add r0, r0, r1           // r0 = r0 + r1
 \end{lstlisting}
-\end{singlespacing}
+% \end{singlespacing}
 
-However, using the barrel shifter we can reduce this to one instruction, which is executed in one cycle.
+However, using the barrel shifter we can reduce this to one instruction, which is executed in one cycle:
 
 \begin{lstlisting}[language={[ARM]Assembler}]
 add r0, r1, r2, LSL #3   // r0 = r1 + (r2 << 3)
@@ -230,53 +279,11 @@ add r0, r1, r2, LSL #3   // r0 = r1 + (r2 << 3)
 
 Due to ARM's RISC nature there is not an abundance of instructions available when compared to some CISC instruction sets, so there are not many unusual instructions to discuss. However, the format of the instructions is in itself unique, especially the conditional instructions and barrel shifter operations discussed in Section~\ref{sec:conditioncodes} and Section~\ref{sec:barrelshifter} respectively.
 
-Instructions that may somewhat unusual are the multiple load/store instructions discussed in Section~\ref{sec:memoryprogrammersmodel}. These instructions allow multiple words to be loaded sequentially from memory and saved in contiguous registers, and vice versa.
+Instructions that may somewhat unusual are the multiple load/store instructions discussed in Section~\ref{sec:dataaccess}. These instructions allow multiple words to be loaded sequentially from memory and saved in contiguous registers, and vice versa.
  
-One interesting instruction is the \texttt{BKPT} instruction. This is the \emph{breakpoint} instruction and is part of the CoreSight debug architecture, which provides instruction trace, data trace, sample-based profiling and performance monitors \cite[p. C1-5]{ARMRef}. This is mentioned here as CoreSight itself is a unique as a powerful debug architecture.
+One interesting instruction is the \texttt{BKPT} instruction. This is the \emph{breakpoint} instruction and is part of the CoreSight debug architecture, which provides instruction trace, data trace, sample-based profiling and performance monitors \cite[p. C1-5]{ARMRef}. This is mentioned here as CoreSight itself is unique as a powerful debug architecture.
 
 \chapter{Memory Management}
-
-\section{Programmer's Model}\label{sec:memoryprogrammersmodel}
-
-As ARM is a \emph{Load/Store Architecture}, it does not perform operations directly on memory. Before any operation is performed, the memory must first be \emph{loaded} into registers, and when the operation is completed, the result must be \emph{stored} back into memory. 
-
-\begin{table}[htb]
-	\begin{tabular}{lll}
-		\toprule
-		Data length	&	Load instruction(s)								&	Store operation(s)								\\
-		\midrule
-		Multiple	&	\texttt{LDM} / \texttt{LDMIA} / \texttt{LDMFD}	&	\texttt{STM} / \texttt{STMIA} / \texttt{STMEA}	\\
-		Dual		&	\texttt{LDRD}									&	\texttt{STRD}									\\
-		Word		&	\texttt{LDR}									&	\texttt{STR}									\\
-		Half-word   &	\texttt{LDRH} / \texttt{LDHRS}					&	n/a												\\
-		Byte        &	\texttt{LDRB} / \texttt{LDRSB}					&	n/a												\\
-		\bottomrule		
-	\end{tabular}
-	\caption{Load and store instructions for various data types.}
-	\label{tab:loadstore}
-\end{table}
-
-Note that load instructions that read data types shorter than word length have signed and unsigned variants. This is necessary because the data will be extended to a word-length type when loaded. For the same reason, note that these data types have no store operations. Once loaded they are word-length types which can be stored with \texttt{STR}, \texttt{STRD}, \texttt{STM}, etc.
-
-\subsection{Auto-incrementing}
-The commands listed above can be used with auto-incrementing functionality. This can be seen by use of the \texttt{!} symbol in the code in Figure~\ref{fig:autoincrement} which demonstrates a simple \texttt{memcpy()} implementation.
-
-\begin{figure}[htb]
-	\centering
-	\begin{lstlisting}[language={[ARM]Assembler}]
-// r12 points to the start of the source data
-// r14 points to the end of the source data
-// r13 points to the start of the destination data loop
-ldmia r12!, {r0-r11}    // load 48 bytes, add 48 to r12
-stmia r13!, {r0-r11}    // and store them, add 48 to r13
-cmp r12, r14            // check for the end
-bne loop                // and loop until done
-	\end{lstlisting}
-	\caption{Example of auto-incrementing addressing adapted from \cite[p. 61]{ARMInst}.}
-	\label{fig:autoincrement}
-\end{figure}
-
-\section{Hardware Implemention}
 
 The Cortex-A8 uses a multilevel memory hierarchy, with L1 and L2 cache available for high-speed access and external L3 memory (DRAM, SRAM, Flash, ROM, etc) available over the AXI interface (seen in Figure~\ref{fig:cortexa8}). The arrangement of these various levels of cache is shown in Figure~\ref{fig:memoryhierarchy}.
 
@@ -287,22 +294,39 @@ The Cortex-A8 uses a multilevel memory hierarchy, with L1 and L2 cache available
 	\label{fig:memoryhierarchy}
 \end{figure}
 
-\subsection{Virtual Memory System Architecture (VMSA)}
-The Cortex-A8, as with all ARMv7-A architecture processors, uses the \emph{Virtual Memory System Architecture} (VMSA) to provide virtual memory addressing. A VMSA's \emph{Memory Management Unit} (MMU) controls allocation of dynamic memory and the mapping of virtual addresses to physical addresses \cite[p. B3-2]{ARMRef}.
+\section{Virtual Memory System Architecture (VMSA)}
+The Cortex-A8, as with all ARMv7-A architecture processors, uses the \emph{Virtual Memory System Architecture} (VMSA) to provide virtual memory addressing. The VMSA's \emph{Memory Management Unit} (MMU) controls allocation of dynamic memory and the mapping of virtual addresses to physical addresses \cite[p. B3-2]{ARMRef}.
 
+\section{L1 Cache}
 
-\subsection{L1 Cache}
+The Cortex-A8's L1 memory system is a Harvard architecture: it contains separate one instruction and data caches. It has parity checking to detect errors, and has both blocking and nonblocking cache behaviours for integer and Advanced SIMD code, respectively. \cite[p. 7-2]{A8Ref}
 
-The Cortex-A8's L1 memory system is a Harvard architecture: it contains separate one instruction and data caches \cite[p. 7-2]{A8Ref}. It has parity checking to detect errors, and has both blocking and nonblocking cache behaviours for integer and Advanced SIMD code, respectively.
+The instruction cache is indexed virtually with the IVIPT extension (\emph{Instruction cache Virtually Indexed Physically Tagged extension}), which is designed to simplify instruction cache maintenance by only requiring a single condition: writing data to an instruction address \cite[p. 7-4]{A8Ref}. Data cache is indexed physically (\emph{Physically Indexed, Physically Tagged}, PIPT), but this is much slower than the VIPT (\emph{Virtually Indexed, Physically Tagged}) instruction cache implemented by IVIPT because the physical address must be looked up, and in doing so if a \emph{translation lookaside buffer} (TLB) miss is encountered external memory must be accessed \cite[p. 7-8]{A8Ref}.
 
-The instruction cache is indexed virtually with the IVIPT extension (\emph{Instruction cache Virtually Indexed Physically Tagged extension}), which is designed to simplify instruction cache maintenance by only requiring a single condition: updating data at an instruction address \cite[p. 7-4]{A8Ref}. Data cache is indexed physically (\emph{Physically Indexed, Physically Tagged}, PIPT), but this is much slower than the VIPT instruction cache because the physical address must be looked up, and in doing so if a \emph{translation lookaside buffer} (TLB) miss is encountered external memory must be accessed \cite[p. 7-8]{A8Ref}.
+\section{L2 Cache}
 
-\subsection{L2 Cache}
+The L2 cache is tightly coupled to the L1 cache as seen in Figure~\ref{fig:cortexa8} \cite[p. 8-2]{A8Ref}. It is a physically addressed, 8-way associative cache structure, and communicates with external memory via the AXI system bus.
 
-A3
-B2
+Speed optimisations of the L2 cache include division into separate banks to facilitate parallel operations, and support for up to 12 NEON read accesses to facilitate streaming of NEON data. The L2 cache also uses a dirty bit on every quadword to minimise the redundant transfer of clean data over AXI.
 
-6-2
+The L2 cache transfer policy is shown in Table~\ref{tab:cachetransfer}.
+
+\begin{table}[htb]
+	\centering
+	\begin{tabular}{lll}
+		\toprule
+		Request type			&	L2 hit					&	L2 miss		\\
+		\midrule
+		Instruction miss (read)	&	L2 $\rightarrow$ L1		&	\parbox[t][6ex]{4cm}{AXI $\rightarrow$ L1	\\ AXI $\rightarrow$ L2}	\\
+		Data miss (read)		&	L2 $\rightarrow$ L1		&	\parbox[t][6ex]{4cm}{AXI $\rightarrow$ L1	\\ AXI $\rightarrow$ L2}	\\
+		NEON (read)				&	L2 $\rightarrow$ NEON	&	\parbox[t][6ex]{4cm}{AXI $\rightarrow$ NEON	\\ AXI $\rightarrow$ L2}	\\
+		Data or NEON (write)	&	Data $\rightarrow$ L2	&	\parbox[t][6ex]{4cm}{Initiates write allocate fill	\\ AXI $\rightarrow$ L2}	\\
+		TLB table walk			&	L2 $\rightarrow$ TLB	&	\parbox[t][6ex]{4cm}{AXI $\rightarrow$ TLB	\\ AXI $\rightarrow$ L2}	\\
+		\bottomrule
+	\end{tabular}
+	\caption{L2 cache transfer policy from \cite[p. 8-4]{A8Ref}.}
+	\label{tab:cachetransfer}
+\end{table}
 
 \chapter{ARM Assembly Example}
 An example of ARM assembly programming can be seen in Appendix~\ref{appendix:a} (p. \pageref{appendix:a}).
@@ -313,16 +337,16 @@ This code calculates the inner product of two $n$-length vectors. Functions are 
 
 In C, these two functions are declared respectively as follows.
 
-\begin{singlespacing}
+% \begin{singlespacing}
 \begin{lstlisting}[language={AssemblerC}]
 int32_t dot_product_int32_asm(int32_t *,int32_t *, int32_t);
 float dot_product_float_asm(float *,float *, int32_t);
 \end{lstlisting}
-\end{singlespacing}
+% \end{singlespacing}
 
 For the purposes of reference and benchmarking, the following C implementations were created.
 
-\begin{singlespacing}
+% \begin{singlespacing}
 \begin{lstlisting}[language={AssemblerC}]
 int32_t dot_product_int32(int32_t *x,int32_t *y, int32_t n) {
     int32_t sum = 0;
@@ -336,11 +360,11 @@ float dot_product_float(float *x,float *y, int32_t n) {
     return sum;
 }
 \end{lstlisting}
-\end{singlespacing}
+% \end{singlespacing}
 
 Additionally, the floating point implementation has a secondary reference implementation that takes advantage of Advanced SIMD using Apple's Accelerate framework \cite{Accelerate}.
 
-\begin{singlespacing}
+% \begin{singlespacing}
 \begin{lstlisting}[language={AssemblerC}]
 float dot_product_float_accelerate(float *x,float *y, int32_t n) {
     float result;
@@ -348,18 +372,18 @@ float dot_product_float_accelerate(float *x,float *y, int32_t n) {
     return result;
 }
 \end{lstlisting}
-\end{singlespacing}
+% \end{singlespacing}
 
 \section{Implementation}
-The code was implemented on iOS using the iOS SDK. It was tested and benchmarked on an iPhone 4. During development the \emph{iOS ABI Function Call Guide} \cite{iOSABI} was consulted frequently. For example, the guide defines which registers must be preserved by subroutines, and therefore which registers must be pushed to the stack so that they can be returned to their state when the subroutine returns is not changed. Registers' preserved status is listed in Table~\ref{tab:registers} on page~\pageref{tab:registers}.
+The code was implemented on iOS using the iOS SDK. It was tested and benchmarked on an iPhone 4. During development the \emph{iOS ABI Function Call Guide} \cite{iOSABI} was consulted frequently. For example, the guide specifies which registers must be preserved by subroutines. Preserved registers must be pushed to the stack at the beginning of a subroutine so that they can be returned to their original state when the subroutine returns. The registers' preserved status is listed in Table~\ref{tab:registers} on page~\pageref{tab:registers}.
 
 \section{Benchmarking}
 
 To test the performance of the ARM assembly implementation random vectors were generated of varying lengths and their dot products were calculated in all implementations (C Signed 32-bit Integer, ARM Signed 32-bit Integer, C Float, ARM Float, vDSP Float). The vector lengths used were 10, 100, 500, 1,000, 2,000, 4,000, 8,000, 16,000, 32,000, 64,000, 128,000, 256,000 and 512,000.
 
-The original measurement method was to use the CCNT (\emph{Cycle Count Register}), but access is restricted to privileged mode, and therefore unavailable from iOS applications. Instead, \texttt{mach\_absolute\_time()} was used.
+The original measurement method was to use the CCNT (\emph{Cycle Count Register}), but CCNT register access is restricted to privileged mode and therefore unavailable from iOS applications. Instead, \texttt{mach\_absolute\_time()} was used.
 
-The results can be seen in detail in Table~\ref{tab:results} and are charted in Figure~\ref{fig:results}. There are a few interesting points to note in these results:
+The results can be seen in detail in Table~\ref{tab:results} and are charted in Figure~\ref{fig:results}. There are a few interesting points to note:
 \begin{enumerate}
 	\item The C implementations (circle series) are a whole magnitude of order slower than the NEON-accelerated implementations (i.e., vDSP and ARM+NEON).
 	\item The non-SIMD ARM implementation (diamond series) is faster than the C implementations, but not as fast as NEON-accelerated implementations. There is no non-NEON floating point implementation because all floating point arithmetic must be performed by the NEON coprocessor.
@@ -382,13 +406,16 @@ The results can be seen in detail in Table~\ref{tab:results} and are charted in 
 \end{table}
 
 \bibliographystyle{plain}
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliography}
 \bibliography{ARM_Report}
 
 \appendix
 \chapter{ARM Assembly Programming Example -- Inner Product of Two Vectors}\label{appendix:a}
 
-\begin{singlespacing}
+% \begin{singlespacing}
 \lstinputlisting[language={[ARM]Assembler}]{../ARM/dot_product.s}	
-\end{singlespacing}  
+% \end{singlespacing}  
 
 \end{document}
