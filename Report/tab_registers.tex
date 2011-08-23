@@ -1,0 +1,56 @@
+	\begin{tabular}{lllllll}
+		\toprule
+		Type						&	\multicolumn{3}{l}{Name}	&	Preserved	&	Notes						\\
+		\midrule
+	 	General-purpose register	&	\multicolumn{3}{l}{R0}		&	No			&	Argument/result/scratch 1   \\
+							 		&	\multicolumn{3}{l}{R1}		&	No			&	Argument/result/scratch 2   \\
+							 		&	\multicolumn{3}{l}{R2}		&	No			&	Argument/scratch 3			\\
+							 		&	\multicolumn{3}{l}{R3}		&	No			&	Argument/scratch 4			\\
+							 		&	\multicolumn{3}{l}{R4}		&	Yes			&	Variable register 1			\\
+							 		&	\multicolumn{3}{l}{R5}		&	Yes			&	Variable register 2			\\
+							 		&	\multicolumn{3}{l}{R6}		&	Yes			&	Variable register 3			\\
+							 		&	\multicolumn{3}{l}{R7}		&	Yes			&	Variable register 4 / Frame pointer on iOS	\\
+							 		&	\multicolumn{3}{l}{R8}		&	Yes			&	Variable register 5			\\
+							 		&	\multicolumn{3}{l}{R9}		&	Special		&	Platform register			\\
+							 		&	\multicolumn{3}{l}{R10}		&	Yes			&	Variable register 7			\\
+							 		&	\multicolumn{3}{l}{R11}		&	Yes			&	Variable register 8			\\
+							 		&	\multicolumn{3}{l}{R12}		&	No			&	The Intra-Procedure-call scratch register (IP)	\\
+							 		&	\multicolumn{3}{l}{R13}		&	Special		&	Stack pointer (SP)	 		\\
+							 		&	\multicolumn{3}{l}{R14}		&	Special		&	Link register (LR)	 		\\
+							 		&	\multicolumn{3}{l}{R15}		&	Special		&	Program counter (PC) 		\\
+		Program status register		&	\multicolumn{3}{l}{CPSR}	&	Special		&						 		\\
+		NEON register				&	Q0	&	D0	&	S0			&	No			&	  		\\
+									&		&		&	S1			&	No			&	  		\\
+									&		&	D1	&	S2			&	No			&	  		\\
+									&		&		&	S3			&	No			&	  		\\
+									&	Q1	&	D2	&	S4			&	No			&	  		\\
+									&		&		&	S5			&	No			&	  		\\
+									&		&	D3	&	S6			&	No			&	  		\\
+									&		&		&	S7			&	No			&	  		\\
+									&	Q2	&	D4	&	S8			&	No			&	  		\\
+									&		&		&	S9			&	No			&	  		\\
+									&		&	D5	&	S10			&	No			&	  		\\
+									&		&		&	S11			&	No			&	  		\\
+									&	Q3	&	D6	&	S12			&	No			&	  		\\
+									&		&		&	S13			&	No			&	  		\\
+									&		&	D7	&	S14			&	No			&	  		\\
+									&		&		&	S15			&	No			&	  		\\
+									&	Q4	&	D8	&	S16			&	Yes			&	  		\\
+									&		&		&	S17			&	Yes			&	  		\\
+									&		&	D9	&	S18			&	Yes			&	  		\\
+									&		&		&	S19			&	Yes			&	  		\\
+									&	Q5	&	D10	&	S20			&	Yes			&	  		\\
+									&		&		&	S21			&	Yes			&	  		\\
+									&		&	D11	&	S22			&	Yes			&	  		\\
+									&		&		&	S23			&	Yes			&	  		\\
+									&	Q6	&	D12	&	S24			&	Yes			&	  		\\
+									&		&		&	S25			&	Yes			&	  		\\
+									&		&	D13	&	S26			&	Yes			&	  		\\
+									&		&		&	S27			&	Yes			&	  		\\
+									&	Q7	&	D14	&	S28			&	Yes			&	  		\\
+									&		&		&	S29			&	Yes			&	  		\\
+									&		&	D15	&	S30			&	Yes			&	  		\\
+									&		&		&	S31			&	Yes			&	  		\\
+		VFP status register			&	\multicolumn{3}{l}{FPSCR}	&	Special		&						 		\\
+		\bottomrule
+	\end{tabular}

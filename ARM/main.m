@@ -8,24 +8,37 @@
 
 #import <UIKit/UIKit.h>
 #import <Accelerate/Accelerate.h>
+#include <mach/mach_time.h>
 
-#define MAX_VECTOR_LENGTH 10
 #define MAX_TEST_VALUE 100
-#define MAX_ABS_ERROR 1.0e-6
+#define TEST_VALUES 10, 100, 500, 1000, 2000, 4000, 8000, 16000, 32000, 64000, 128000, 256000, 512000
+#define TEST_ITERATIONS
 
-void test_int32(int32_t *,int32_t *, int32_t);
+void test_int32(int32_t *,int32_t *, int32_t, FILE *log);
 int32_t dot_product_int32(int32_t *,int32_t *, int32_t);
 int32_t dot_product_int32_accelerate(int32_t *,int32_t *, int32_t);
 int32_t dot_product_int32_asm(int32_t *,int32_t *, int32_t);
 
-void test_int32(int32_t *x,int32_t *y, int32_t n) {
+void test_int32(int32_t *x,int32_t *y, int32_t n, FILE *log) {
+    mach_timebase_info_data_t info;
+    mach_timebase_info(&info);
+    
+    uint64_t cStart = mach_absolute_time();
     int32_t cResult = dot_product_int32(x, y, n);
+    uint64_t cTime = mach_absolute_time() - cStart;
+    cTime = cTime * info.numer / info.denom;
+
+    uint64_t asmStart = mach_absolute_time();
     int32_t asmResult = dot_product_int32_asm(x, y, n);
-    printf("%d => %d :: %d (%s)\n",
+    uint64_t asmTime = mach_absolute_time() - asmStart;
+    asmTime = asmTime * info.numer / info.denom;
+
+    fprintf(log, "%d,%d,%d,%llu,%llu\n",
            n,
            cResult,
            asmResult,
-           cResult == asmResult ? "SUCCESS" : "FAIL");
+           cTime,
+           asmTime);
 }
 
 int32_t dot_product_int32(int32_t *x,int32_t *y, int32_t n) {
@@ -46,21 +59,38 @@ int32_t dot_product_int32_accelerate(int32_t *x,int32_t *y, int32_t n) {
 }
 
 #ifdef __ARM_NEON__
-void test_float(float *,float *, int32_t);
+void test_float(float *,float *, int32_t, FILE *log);
 float dot_product_float(float *,float *, int32_t);
 float dot_product_float_accelerate(float *,float *, int32_t);
 float dot_product_float_asm(float *,float *, int32_t);
 
-void test_float(float *x,float *y, int32_t n) {
+void test_float(float *x,float *y, int32_t n, FILE *log) {
+    mach_timebase_info_data_t info;
+    mach_timebase_info(&info);
+    
+    uint64_t cStart = mach_absolute_time();
     float cResult = dot_product_float(x, y, n);
+    uint64_t cTime = mach_absolute_time() - cStart;
+    cTime = cTime * info.numer / info.denom;
+    
+    uint64_t accelerateStart = mach_absolute_time();
+    float accelerateResult = dot_product_float_accelerate(x, y, n);
+    uint64_t accelerateTime = mach_absolute_time() - accelerateStart;
+    accelerateTime = accelerateTime * info.numer / info.denom;
+
+    uint64_t asmStart = mach_absolute_time();
     float asmResult = dot_product_float_asm(x, y, n);
-    float error = fabs(asmResult - cResult) / cResult;
-    printf("%d => %f :: %f (%f => %s)\n",
+    uint64_t asmTime = mach_absolute_time() - asmStart;
+    asmTime = asmTime * info.numer / info.denom;
+
+    fprintf(log, "%d,%f,%f,%f,%llu,%llu,%llu\n",
            n,
            cResult,
+           accelerateResult,
            asmResult,
-           error,
-           error < MAX_ABS_ERROR ? "SUCCESS" : "FAIL");
+           cTime,
+           accelerateTime,
+           asmTime);
 }
 
 float dot_product_float(float *x,float *y, int32_t n) {
@@ -79,41 +109,59 @@ float dot_product_float_accelerate(float *x,float *y, int32_t n) {
 
 int main(int argc, char *argv[])
 {
+    
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    NSString *documentsDirectory;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains
+    (NSDocumentDirectory, NSUserDomainMask, YES);
+    if ([paths count] > 0)  {
+        documentsDirectory = [paths objectAtIndex:0];
+    }
+    
+    FILE *int32_log = fopen([[documentsDirectory stringByAppendingPathComponent:@"ints.csv"] UTF8String], "a");
+    FILE *float_log = fopen([[documentsDirectory stringByAppendingPathComponent:@"floats.csv"] UTF8String], "a");
+    [pool release];
+    
+    srand(time(NULL));
+    
+    const int test_values[] = { TEST_VALUES };
+    const int test_value_count = sizeof(test_values) / sizeof(*test_values);
+    int max_vector_length = 0;
+    for (int i=0; i < test_value_count; i++)
+        max_vector_length = MAX(max_vector_length, test_values[i]);
     {
-        int32_t *x = malloc(sizeof(int32_t) * MAX_VECTOR_LENGTH);
-        int32_t *y = malloc(sizeof(int32_t) * MAX_VECTOR_LENGTH);
+        int32_t *x = malloc(sizeof(int32_t) * max_vector_length);
+        int32_t *y = malloc(sizeof(int32_t) * max_vector_length);
         
-        for (int i=0; i<MAX_VECTOR_LENGTH; i++) {
+        for (int i=0; i<max_vector_length; i++) {
             x[i] = rand() % MAX_TEST_VALUE;
             y[i] = rand() % MAX_TEST_VALUE;
         }
         
-        for (int i=0; i<=MAX_VECTOR_LENGTH; i++)
-            test_int32(x, y, i);
+        fprintf(int32_log, "n,C Result,ASM Result,C Time,ASM Time\n");
+        
+        for (int i=0; i < test_value_count; i++)
+            test_int32(x, y, test_values[i], int32_log);
     }
 #ifdef __ARM_NEON__
     {
-        float *x = malloc(sizeof(float) * MAX_VECTOR_LENGTH);
-        float *y = malloc(sizeof(float) * MAX_VECTOR_LENGTH);
+        float *x = malloc(sizeof(float) * max_vector_length);
+        float *y = malloc(sizeof(float) * max_vector_length);
         
-        for (int i=0; i<MAX_VECTOR_LENGTH; i++) {
+        for (int i=0; i<max_vector_length; i++) {
             x[i] = ((float)rand()/RAND_MAX) * MAX_TEST_VALUE;
             y[i] = ((float)rand()/RAND_MAX) * MAX_TEST_VALUE;
         }
         
-        printf("\n == Float Test ==\n x = ( ");
-        for (int i=0; i<MAX_VECTOR_LENGTH; i++)
-            printf("%f ", x[i]);
-        printf(")\n y = ( ");
-        for (int i=0; i<MAX_VECTOR_LENGTH; i++)
-            printf("%f ", y[i]);
-        printf(")\n\n");
+        fprintf(float_log, "n,C Result,vDSP Result,ASM Result,C Time,vDSP Time,ASM Time\n");
         
-        for (int i=0; i<=MAX_VECTOR_LENGTH; i++)
-            test_float(x, y, i);
+        for (int i=0; i < test_value_count; i++)
+            test_float(x, y, test_values[i], float_log);
         
     }
 #endif
-    fflush(stdout);
+    fclose(int32_log);
+    fclose(float_log);
+
     return 0;
 }
